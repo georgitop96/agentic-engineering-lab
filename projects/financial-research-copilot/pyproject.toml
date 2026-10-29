@@ -3,7 +3,9 @@ name = "financial-research-copilot"
 version = "0.1.0"
 description = "Evidence-backed research over public financial reports"
 requires-python = ">=3.12,<3.13"
-dependencies = []
+dependencies = [
+    "pypdf>=5.0,<7.0",
+]
 
 [project.scripts]
 frc = "financial_research_copilot.cli:main"

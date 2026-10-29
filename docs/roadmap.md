@@ -5,7 +5,7 @@ capability until it has implementation, tests, and documentation.
 
 ## Financial Research Copilot
 
-- [ ] v0.1: extract text from one local PDF with page metadata.
+- [x] v0.1: extract text from one local PDF with page metadata.
 - [ ] v0.1: retrieve relevant passages locally.
 - [ ] v0.1: return one evidence-backed answer with citations.
 - [ ] v0.1: add an offline synthetic/public-report demo.

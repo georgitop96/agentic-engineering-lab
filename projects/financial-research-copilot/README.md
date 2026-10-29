@@ -4,19 +4,18 @@ Local-first research assistance for public financial reports.
 
 ## Status
 
-This project is currently a tested Python package scaffold. The following are
-planned and not implemented yet:
+This project currently supports local PDF ingestion with page-aware text
+extraction. The following remain planned and are not implemented yet:
 
-- PDF ingestion and page-aware extraction;
 - passage retrieval;
 - evidence-backed answer generation;
 - document/page citations;
 - multi-document retrieval and evaluation;
 - a web UI, deployment, and MCP integrations.
 
-The target v0.1 is one local PDF, one question, retrieved evidence, and a
-cited answer. The demo will use synthetic or public data and will not require
-confidential bank data, credentials, or paid API calls.
+The current v0.1 slice accepts one local PDF and prints extracted text for each
+page with the source filename and one-based page number. It does not make model
+or network calls.
 
 ## Development
 
@@ -24,11 +23,36 @@ From this project directory:
 
 ```bash
 uv sync
-PYTHONPATH=src uv run --no-project python -m unittest discover -s tests -v
+uv run python -m unittest discover -s tests -v
 ```
 
-The current baseline test verifies that the package can be imported. It does
-not imply that the copilot features are available yet.
+Extract the included two-page synthetic fixture:
+
+```bash
+uv run frc ingest tests/fixtures/synthetic_report.pdf
+```
+
+Example output:
+
+```text
+Document: synthetic_report.pdf
+Pages: 2
+
+--- Page 1 ---
+Revenue increased in 2025.
+
+--- Page 2 ---
+Supplier concentration is a risk.
+```
+
+To ingest another local PDF, pass its path to the same command:
+
+```bash
+uv run frc ingest /path/to/annual-report.pdf
+```
+
+Missing, non-file, invalid, and unreadable PDF paths return a concise error and
+exit with status 2.
 
 ## Design goals
 
@@ -38,3 +62,12 @@ not imply that the copilot features are available yet.
 - explicit insufficient-evidence behavior;
 - optional model providers behind a small interface;
 - no trading, account, payment, or investment-advice actions.
+
+## Current limitations
+
+- Extraction is text-only; scanned PDFs that contain images without a text
+  layer are not OCR'd.
+- Text layout, tables, charts, and reading order depend on the PDF's text
+  structure and `pypdf` extraction behavior.
+- Retrieval, citations beyond page metadata, and answer generation are not
+  implemented yet.

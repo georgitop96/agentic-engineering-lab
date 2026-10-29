@@ -13,9 +13,9 @@ document its architecture, tests, limitations, and operational tradeoffs.
 
 Location: [`projects/financial-research-copilot/`](projects/financial-research-copilot/)
 
-Current status: repository scaffold only. PDF ingestion, retrieval, answer
-generation, citations, evaluation, UI, deployment, and MCP integration are
-planned work and are not implemented yet.
+Current status: v0.1 PDF ingestion with page-aware extraction is implemented.
+Retrieval, answer generation, citations, evaluation, UI, deployment, and MCP
+integration remain planned work.
 
 The initial scope is deliberately small:
 
