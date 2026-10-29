@@ -1,0 +1,17 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test-financial-research-copilot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: "latest"
+      - name: Run project tests
+        working-directory: projects/financial-research-copilot
+        run: PYTHONPATH=src uv run --no-project python -m unittest discover -s tests -v

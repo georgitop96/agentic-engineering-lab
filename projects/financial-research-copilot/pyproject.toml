@@ -1,0 +1,19 @@
+[project]
+name = "financial-research-copilot"
+version = "0.1.0"
+description = "Evidence-backed research over public financial reports"
+requires-python = ">=3.12,<3.13"
+dependencies = []
+
+[project.scripts]
+frc = "financial_research_copilot.cli:main"
+
+[build-system]
+requires = ["hatchling>=1.25,<2.0"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/financial_research_copilot"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
