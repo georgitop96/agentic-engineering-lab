@@ -6,6 +6,11 @@ from pathlib import Path
 from . import __version__
 from .ingestion import PDFIngestionError, extract_pdf_pages
 from .retrieval import RetrievalError, chunk_pages, search_chunks
+from .semantic import (
+    FastEmbedder,
+    SemanticSearchError,
+    semantic_search,
+)
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -28,6 +33,29 @@ def build_parser() -> argparse.ArgumentParser:
     )
     search_parser.add_argument("pdf_path", type=Path, help="path to a local PDF")
     search_parser.add_argument("query", help="search terms")
+    search_parser.add_argument(
+        "--method",
+        choices=("lexical", "semantic"),
+        default="lexical",
+        help="retrieval method (default: lexical)",
+    )
+
+    chunks_parser = subparsers.add_parser(
+        "chunks", help="inspect page-aware PDF chunks"
+    )
+    chunks_parser.add_argument("pdf_path", type=Path, help="path to a local PDF")
+    chunks_parser.add_argument(
+        "--chunk-size",
+        type=int,
+        default=80,
+        help="maximum words per chunk (default: 80)",
+    )
+    chunks_parser.add_argument(
+        "--sentence-overlap",
+        type=int,
+        default=0,
+        help="complete sentences repeated between chunks (default: 0)",
+    )
     return parser
 
 
@@ -53,10 +81,41 @@ def main(argv: list[str] | None = None) -> int:
             print(page.text.strip())
         return 0
 
+    if args.command == "chunks":
+        try:
+            pages = extract_pdf_pages(args.pdf_path)
+            chunks = chunk_pages(
+                pages,
+                max_words=args.chunk_size,
+                sentence_overlap=args.sentence_overlap,
+            )
+        except (PDFIngestionError, ValueError) as error:
+            print(f"Error: {error}")
+            return 2
+
+        for chunk_number, chunk in enumerate(chunks, start=1):
+            print(f"Chunk {chunk_number}:")
+            print(f"Document: {chunk.document_name}")
+            print(f"Page: {chunk.page_number}")
+            print(f"Chunk index: {chunk.chunk_index}")
+            print(f"Word count: {len(chunk.text.split())}")
+            print(f"Text: {chunk.text}")
+            if chunk_number != len(chunks):
+                print()
+        return 0
+
     try:
         pages = extract_pdf_pages(args.pdf_path)
-        results = search_chunks(chunk_pages(pages), args.query)
-    except (PDFIngestionError, RetrievalError) as error:
+        chunks = chunk_pages(pages)
+        if args.method == "semantic":
+            results = semantic_search(
+                chunks,
+                args.query,
+                FastEmbedder(),
+            )
+        else:
+            results = search_chunks(chunks, args.query)
+    except (PDFIngestionError, RetrievalError, SemanticSearchError) as error:
         print(f"Error: {error}")
         return 2
 
@@ -68,7 +127,10 @@ def main(argv: list[str] | None = None) -> int:
         print(f"Result {rank}:")
         print(f"Document: {result.document_name}")
         print(f"Page: {result.page_number}")
-        print(f"Score: {result.score:.2f}")
+        if args.method == "semantic":
+            print(f"Cosine similarity: {result.cosine_similarity:.4f}")
+        else:
+            print(f"Score: {result.score:.2f}")
         print(f"Passage: {result.text}")
         if rank != len(results):
             print()

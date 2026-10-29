@@ -7,6 +7,11 @@ dependencies = [
     "pypdf>=5.0,<7.0",
 ]
 
+[project.optional-dependencies]
+semantic = [
+    "fastembed>=0.7,<1.0",
+]
+
 [project.scripts]
 frc = "financial_research_copilot.cli:main"
 
