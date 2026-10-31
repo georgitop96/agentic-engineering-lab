@@ -21,10 +21,11 @@ and page metadata.
 | Lexical search and an optional local semantic adapter | Multi-document retrieval and persistent indexes |
 | Page retrieval evaluation on a labeled synthetic report | UI, deployment, and MCP integrations |
 
-The current 12-question lexical fixture measures Hit@1 **0.917**, Recall@2
+The current 12-question fixture measures Hit@1 **0.917**, Recall@2
 **0.958**, and MRR **0.958**. These are development-fixture results, not
-real-world accuracy claims. Semantic retrieval quality has not yet been
-measured.
+real-world accuracy claims. Lexical and the existing semantic baseline tie on
+these aggregate metrics but make different errors; see the
+[per-question comparison](docs/PROJECT_STATUS.md#semantic-benchmark).
 
 [Project guide and CLI example](projects/financial-research-copilot/README.md)
 · [Verified project status](docs/PROJECT_STATUS.md)

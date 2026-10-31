@@ -20,7 +20,8 @@ researcher can check the original document.
 
 The CLI returns passages rather than generated answers. Document name and
 one-based PDF viewer page number are source metadata, not a complete citation
-system. Real-model semantic quality remains unmeasured.
+system. The existing semantic baseline has been measured on the synthetic
+fixture; its aggregate metrics tie lexical retrieval, with different errors.
 
 [Verified status and evaluation history](../../docs/PROJECT_STATUS.md)
 · [Portfolio overview](../../README.md)
@@ -136,10 +137,14 @@ Average | - | - | 0.917 | 0.958 | 0.958
 | Method and dataset | Hit@1 | Recall@2 | MRR |
 | --- | ---: | ---: | ---: |
 | Lexical, current 12-question fixture | 0.917 | 0.958 | 0.958 |
-| Semantic, same fixture | Not measured | Not measured | Not measured |
+| Semantic, same fixture | 0.917 | 0.958 | 0.958 |
 
-Lexical results were verified on 2026-10-31. The enclosure paraphrase ranks its
-gold page second; the final multi-page question ranks one gold page third.
+Both methods were verified on 2026-10-31 with the same dataset and unchanged
+retrieval code. Semantic retrieval improves the enclosure paraphrase's first
+relevant rank from 2 to 1, but hurts the revenue-growth question from 1 to 2.
+For the final multi-page question, one gold page ranks third lexically and
+fourth semantically; both have Recall@2 of 0.5. See the
+[complete comparison](../../docs/PROJECT_STATUS.md#semantic-benchmark).
 See [project status](../../docs/PROJECT_STATUS.md#evaluation-fixture-revisions)
 for the four question revisions, evidence rationale, and historical results.
 Retrieval algorithms were unchanged between those measurements.
@@ -174,6 +179,22 @@ The existing optional adapter uses FastEmbed's CPU/ONNX runtime and
 and may download weights; CPU latency and memory use have not been measured
 here. Cosine similarity is a ranking signal, not calibrated confidence.
 
+The adapter adds `Represent this sentence for searching relevant passages: `
+to queries only; passages use the original chunk text. Installed FastEmbed
+0.9.1 resolves this identity to `Qdrant/bge-small-en-v1.5-onnx-Q`, a quantized
+384-dimensional ONNX model. The benchmark records the artifact revision and
+checksum in [project status](../../docs/PROJECT_STATUS.md#semantic-benchmark).
+
+Set a persistent cache before any semantic command. FastEmbed reads this
+environment variable; without it, its default cache is `/tmp/fastembed_cache`
+on this system. Re-export it in future shells; no shell startup file is changed:
+
+```bash
+export FASTEMBED_CACHE_PATH="$HOME/.cache/financial-research-copilot/fastembed"
+```
+
+The cache is outside the repository and is unrelated to a vector index.
+
 For a reader choosing to install the optional extra:
 
 ```bash
@@ -198,10 +219,11 @@ HF_HUB_OFFLINE=1 uv run --offline --no-sync frc eval tests/fixtures/synthetic_fi
   --method semantic --dataset tests/fixtures/financial_report_eval.json
 ```
 
-The offline commands fail rather than download if weights are missing. The
-semantic benchmark is pending because cached weights were unavailable at
-review; no semantic scores or lexical-versus-semantic quality advantage are
-claimed. The optional [smoke script](scripts/semantic_smoke.py) is a manual
+The offline commands fail rather than download if weights are missing. For
+this benchmark the configured model and four required configuration/tokenizer
+files were downloaded once, then evaluation ran offline from the persistent
+cache. No dependencies were installed. Aggregate ties with offsetting errors
+do not establish a quality advantage. The optional [smoke script](scripts/semantic_smoke.py) is a manual
 model integration check, outside test discovery; it may download weights when
 run without offline mode.
 
@@ -248,10 +270,10 @@ model API calls. Use public or synthetic documents when sharing examples.
 
 ## Upcoming roadmap
 
-1. Measure the existing semantic baseline on the same revised fixture when
-   local weights are available.
-2. Broaden independently labeled evaluation with harder financial evidence,
+1. Broaden independently labeled evaluation with harder financial evidence,
    ratios, and insufficient-evidence cases before selecting retrieval changes.
+2. Experiment with a simple hybrid ranking against both baselines on that
+   broader set; the observed complementary errors motivate a test, not adoption.
 3. Design evidence-constrained answers with validated page citations and an
    insufficient-evidence path, tested with deterministic fakes.
 

@@ -10,8 +10,9 @@ capability until it has implementation, tests, and documentation.
 - [x] Optional local semantic adapter with deterministic fake-vector tests.
 - [x] Page retrieval evaluation with validated labels and offline lexical results.
 - [x] Reproducible synthetic-report CLI search and evaluation examples.
-- [ ] Measure the existing semantic adapter on the same evaluation fixture.
+- [x] Measure the existing semantic adapter on the same evaluation fixture.
 - [ ] Broaden independently labeled evidence and insufficient-evidence cases.
+- [ ] Test hybrid retrieval against both baselines on a broader evaluation set.
 - [ ] v0.1: return one evidence-backed answer with citations.
 - [ ] v0.2: support multiple documents and persistent local indexes.
 - [ ] v0.2: broaden retrieval evaluation and add answer evaluation.
