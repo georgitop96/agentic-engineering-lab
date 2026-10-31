@@ -1,3 +1,4 @@
+import json
 import unittest
 from pathlib import Path
 from tempfile import TemporaryDirectory
@@ -5,6 +6,14 @@ from unittest.mock import patch
 
 from financial_research_copilot import __version__
 from financial_research_copilot.cli import build_parser, main
+from financial_research_copilot.evaluation import (
+    EvaluationDataError,
+    EvaluationQuestion,
+    evaluate,
+    load_dataset,
+    score_question,
+    validate_gold_pages,
+)
 from financial_research_copilot.ingestion import (
     PDFIngestionError,
     PageText,
@@ -359,3 +368,197 @@ class PackageTests(unittest.TestCase):
 
         self.assertEqual(exit_code, 2)
         self.assertIn("max_words must be greater than zero", print_mock.call_args.args[0])
+
+    def test_evaluation_metrics_deduplicate_pages_and_average(self) -> None:
+        chunks = [
+            TextChunk("report.pdf", 2, 1, "first passage"),
+            TextChunk("report.pdf", 2, 2, "duplicate page passage"),
+            TextChunk("report.pdf", 3, 1, "second page passage"),
+        ]
+        question = EvaluationQuestion("question", (2, 3))
+
+        result = evaluate([question], lambda _: chunks)
+
+        self.assertEqual(result.questions[0].retrieved_pages, (2, 3))
+        self.assertEqual(result.hit_at_1, 1.0)
+        self.assertEqual(result.recall_at_2, 1.0)
+        self.assertEqual(result.mean_reciprocal_rank, 1.0)
+
+    def test_evaluation_metrics_score_multiple_relevant_pages(self) -> None:
+        results = [
+            TextChunk("report.pdf", 4, 1, "irrelevant first page"),
+            TextChunk("report.pdf", 2, 1, "relevant second page"),
+            TextChunk("report.pdf", 3, 1, "relevant third page"),
+        ]
+
+        metrics = score_question(EvaluationQuestion("question", (2, 3)), results)
+
+        self.assertEqual(metrics.hit_at_1, 0.0)
+        self.assertEqual(metrics.recall_at_2, 0.5)
+        self.assertEqual(metrics.mean_reciprocal_rank, 0.5)
+
+    def test_evaluation_metrics_are_zero_for_no_results(self) -> None:
+        metrics = score_question(EvaluationQuestion("question", (1, 2)), [])
+
+        self.assertEqual(metrics.retrieved_pages, ())
+        self.assertEqual(metrics.hit_at_1, 0.0)
+        self.assertEqual(metrics.recall_at_2, 0.0)
+        self.assertEqual(metrics.mean_reciprocal_rank, 0.0)
+
+    def test_evaluation_dataset_rejects_malformed_data(self) -> None:
+        with TemporaryDirectory() as directory:
+            path = Path(directory) / "bad.json"
+            path.write_text(
+                '[{"question": "missing labels", "gold_pages": []}]',
+                encoding="utf-8",
+            )
+
+            with self.assertRaisesRegex(EvaluationDataError, "gold_pages"):
+                load_dataset(path)
+
+    def test_cli_eval_prints_per_question_and_aggregate_metrics(self) -> None:
+        dataset = Path(__file__).parent / "fixtures" / "financial_report_eval.json"
+        with patch("builtins.print") as print_mock:
+            exit_code = main(
+                [
+                    "eval",
+                    str(FINANCIAL_FIXTURE),
+                    "--method",
+                    "lexical",
+                    "--dataset",
+                    str(dataset),
+                ]
+            )
+
+        self.assertEqual(exit_code, 0)
+        output = "\n".join(call.args[0] for call in print_mock.call_args_list)
+        self.assertIn("Question | Retrieved pages | Gold pages", output)
+        self.assertIn("Average | - | - |", output)
+
+    def test_evaluation_macro_averages_heterogeneous_questions(self) -> None:
+        questions = [
+            EvaluationQuestion("first", (1,)),
+            EvaluationQuestion("second", (2, 3)),
+        ]
+        rankings = {"first": [1, 4], "second": [4, 2, 3]}
+
+        metrics = evaluate(
+            questions,
+            lambda query: [
+                TextChunk("report.pdf", page, 1, "evidence")
+                for page in rankings[query]
+            ],
+        )
+
+        self.assertEqual(metrics.hit_at_1, 0.5)
+        self.assertEqual(metrics.recall_at_2, 0.75)
+        self.assertEqual(metrics.mean_reciprocal_rank, 0.75)
+
+    def test_evaluation_macro_average_includes_zero_result_question(self) -> None:
+        metrics = evaluate(
+            [EvaluationQuestion("found", (1,)), EvaluationQuestion("missing", (2,))],
+            lambda query: [TextChunk("report.pdf", 1, 1, "evidence")]
+            if query == "found" else [],
+        )
+
+        self.assertEqual(metrics.hit_at_1, 0.5)
+        self.assertEqual(metrics.recall_at_2, 0.5)
+        self.assertEqual(metrics.mean_reciprocal_rank, 0.5)
+
+    def test_gold_page_validation_uses_actual_numbers_not_page_count(self) -> None:
+        validate_gold_pages([EvaluationQuestion("present", (1, 3))], [1, 3])
+        with self.assertRaisesRegex(EvaluationDataError, r"\[2\].*absent"):
+            validate_gold_pages([EvaluationQuestion("missing", (2,))], [1, 3])
+
+    def test_cli_eval_rejects_missing_gold_pages_before_loading_model(self) -> None:
+        pages = [PageText("report.pdf", 1, "Revenue."), PageText("report.pdf", 3, "Debt.")]
+        for gold_pages in ((2,), (3, 999)):
+            with self.subTest(gold_pages=gold_pages), patch(
+                "financial_research_copilot.cli.load_dataset",
+                return_value=[EvaluationQuestion("question", gold_pages)],
+            ), patch(
+                "financial_research_copilot.cli.extract_pdf_pages", return_value=pages
+            ), patch(
+                "financial_research_copilot.cli.FastEmbedder"
+            ) as model, patch("builtins.print") as output:
+                code = main([
+                    "eval", "report.pdf", "--method", "semantic",
+                    "--dataset", "labels.json",
+                ])
+
+            self.assertEqual(code, 2)
+            self.assertIn("Question 1", output.call_args.args[0])
+            self.assertIn("Extracted pages: [1, 3]", output.call_args.args[0])
+            self.assertIn("Correct 'gold_pages'", output.call_args.args[0])
+            model.assert_not_called()
+
+    def test_cli_eval_rejects_invalid_label_types_and_values(self) -> None:
+        for labels in ([0], [-1], [True], [1.5], ["1"], [1, 1], None, [[1]]):
+            with self.subTest(labels=labels), patch.object(
+                Path, "read_text",
+                return_value=json.dumps([{"question": "question", "gold_pages": labels}]),
+            ), patch("builtins.print") as output:
+                code = main(["eval", str(FINANCIAL_FIXTURE), "--dataset", "bad.json"])
+
+            self.assertEqual(code, 2)
+            self.assertIn("unique positive integer 'gold_pages'", output.call_args.args[0])
+
+    def test_cli_eval_rejects_empty_extracted_corpus(self) -> None:
+        for pages in ([], [PageText("scan.pdf", 1, "  ")]):
+            for method in ("lexical", "semantic"):
+                with self.subTest(pages=pages, method=method), patch(
+                    "financial_research_copilot.cli.load_dataset",
+                    return_value=[EvaluationQuestion("question", (1,))],
+                ), patch(
+                    "financial_research_copilot.cli.extract_pdf_pages", return_value=pages
+                ), patch(
+                    "financial_research_copilot.cli.FastEmbedder"
+                ) as model, patch("builtins.print") as output:
+                    code = main([
+                        "eval", "scan.pdf", "--method", method,
+                        "--dataset", "labels.json",
+                    ])
+
+                self.assertEqual(code, 2)
+                self.assertIn("no chunks", output.call_args.args[0])
+                self.assertIn("text layer", output.call_args.args[0])
+                model.assert_not_called()
+
+    def test_cli_semantic_eval_uses_fake_vectors_and_actual_page_labels(self) -> None:
+        class FakeEmbedder:
+            def embed_documents(self, texts):
+                self.document_texts = texts
+                return [(1.0, 0.0), (0.0, 1.0)]
+
+            def embed_query(self, text):
+                return (0.0, 1.0)
+
+        embedder = FakeEmbedder()
+        pages = [PageText("report.pdf", 1, "First evidence."), PageText("report.pdf", 3, "Second evidence.")]
+        with patch(
+            "financial_research_copilot.cli.load_dataset",
+            return_value=[EvaluationQuestion("question", (3,))],
+        ), patch(
+            "financial_research_copilot.cli.extract_pdf_pages", return_value=pages
+        ), patch(
+            "financial_research_copilot.cli.FastEmbedder", return_value=embedder
+        ) as model, patch("builtins.print") as output:
+            code = main([
+                "eval", "report.pdf", "--method", "semantic",
+                "--dataset", "labels.json",
+            ])
+
+        self.assertEqual(code, 0)
+        model.assert_called_once_with()
+        self.assertEqual(embedder.document_texts, ["First evidence.", "Second evidence."])
+        printed = "\n".join(call.args[0] for call in output.call_args_list)
+        self.assertIn("question | 3,1 | 3 | 1.00 | 1.00 | 1.00", printed)
+        self.assertIn("Average | - | - | 1.000 | 1.000 | 1.000", printed)
+
+    def test_evaluation_fixture_retains_twelve_questions_and_multi_page_labels(self) -> None:
+        questions = load_dataset(FINANCIAL_FIXTURE.with_name("financial_report_eval.json"))
+        pages = extract_pdf_pages(FINANCIAL_FIXTURE)
+
+        validate_gold_pages(questions, (page.page_number for page in pages))
+        self.assertEqual(len(questions), 12)
+        self.assertEqual(sum(len(question.gold_pages) > 1 for question in questions), 3)

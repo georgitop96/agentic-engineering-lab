@@ -9,7 +9,7 @@ extraction. The following remain planned and are not implemented yet:
 
 - evidence-backed answer generation;
 - document/page citations;
-- multi-document retrieval and evaluation;
+- multi-document retrieval;
 - a web UI, deployment, and MCP integrations.
 
 The current v0.1 slice accepts one local PDF, extracts page-aware text, splits
@@ -153,6 +153,75 @@ until measurements show that the extra duplicate text improves retrieval.
 
 Missing, non-file, invalid, and unreadable PDF paths return a concise error and
 exit with status 2.
+
+## Reproducible page-level evaluation
+
+The repository includes 12 manually labeled questions in
+`tests/fixtures/financial_report_eval.json`. Labels use the actual one-based
+pages of `synthetic_financial_report.pdf`; three questions require evidence from
+two pages. From this project directory, after the development setup above, run:
+
+```bash
+uv run --offline --no-sync frc eval tests/fixtures/synthetic_financial_report.pdf \
+  --method lexical --dataset tests/fixtures/financial_report_eval.json
+```
+
+The evaluator requests all ranked chunks, then keeps each page only at its
+first-seen rank. Normal search still returns at most five chunks by default.
+For each question, let `G` be its non-empty gold page set and `P` its ordered
+unique retrieved pages:
+
+- Hit@1: `1` if `P[0]` belongs to `G`, otherwise `0`.
+- Recall@2: `|set(P[:2]) intersect G| / |G|`.
+- Reciprocal rank: `1 / r`, where `r` is the one-based rank of the first
+  relevant page anywhere in `P`; `0` if none is retrieved. MRR is its mean.
+
+All aggregate metrics are arithmetic means over all questions, including
+questions returning no matches. Empty retrieval or no relevant retrieved page
+scores zero for all metrics. Hit@1 and MRR reward finding any relevant page;
+they do not require all evidence for a multi-page question.
+
+Invalid datasets and labels absent from the actual extracted page-number set
+return an actionable error and status 2. A PDF producing no extractable chunks
+is an ingestion/setup error (status 2), not a valid zero-scoring evaluation.
+
+Measured lexical results on 2026-10-31, with retrieval code unchanged:
+
+| Dataset | Hit@1 | Recall@2 | MRR |
+| --- | ---: | ---: | ---: |
+| Original questions (before revision) | 1.000 | 0.958 | 1.000 |
+| Current questions (four revised paraphrases) | 0.917 | 0.958 | 0.958 |
+
+The original row records the pre-edit run; the command above reproduces the
+current row. Questions 4, 5, 7, and 9 now avoid direct cash, revolving-facility,
+interest-coverage, and ceramic-housing wording. Their labels are unchanged;
+the exact revisions and evidence rationale are in
+[project status](../../docs/PROJECT_STATUS.md#evaluation-fixture-revisions).
+
+The revised enclosure question ranks page 4 second; the final multi-page
+question still ranks one of its gold pages third. Lower scores reflect changed
+questions, not a retrieval algorithm regression. Some paraphrases still match
+generic words, so these results do not demonstrate semantic understanding.
+
+This four-page synthetic dataset is a deterministic development check, not a
+real-world accuracy benchmark. It has one topic per page, only 12 manually
+labeled questions, no independent held-out set, and no unanswerable cases.
+Page relevance does not guarantee that the selected chunk contains the answer
+or all required evidence. Results do not measure answer correctness, real
+financial tables/footnotes, multi-document reasoning, or production latency.
+
+Semantic evaluation has not yet been measured: local weights were unavailable
+at review, and no model download was performed. With the existing optional
+FastEmbed dependency and `BAAI/bge-small-en-v1.5` weights already cached, use
+this offline command (it fails rather than downloads if the cache is missing):
+
+```bash
+HF_HUB_OFFLINE=1 uv run --offline --no-sync frc eval tests/fixtures/synthetic_financial_report.pdf \
+  --method semantic --dataset tests/fixtures/financial_report_eval.json
+```
+
+The next comparison is the pending semantic benchmark on this same revised
+dataset. Further milestones and limitations are recorded in project status.
 
 ## Design goals
 

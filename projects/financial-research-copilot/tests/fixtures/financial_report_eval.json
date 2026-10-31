@@ -1,0 +1,14 @@
+[
+  {"question": "What was Asteron Ledger's revenue in fiscal 2025?", "gold_pages": [1]},
+  {"question": "How much did revenue increase from 2024 to 2025?", "gold_pages": [1]},
+  {"question": "Which activity contributed 62 million credits?", "gold_pages": [1]},
+  {"question": "How large was the readily available money balance when the accounting period closed?", "gold_pages": [2]},
+  {"question": "What borrowing capacity remains untouched at the bank?", "gold_pages": [2]},
+  {"question": "What amount of loan principal is scheduled for payment in 2026?", "gold_pages": [3]},
+  {"question": "By what multiple can earnings meet lenders' financing charges?", "gold_pages": [3]},
+  {"question": "What percentage of component purchases came from the biggest supplier?", "gold_pages": [4]},
+  {"question": "How is management reducing dependence on a single maker of protective enclosures?", "gold_pages": [4]},
+  {"question": "How do year-end cash and total debt obligations compare?", "gold_pages": [2, 3]},
+  {"question": "Compare operating cash flow with scheduled 2026 principal payments.", "gold_pages": [2, 3]},
+  {"question": "What business growth and supplier disruption factors could affect customer orders?", "gold_pages": [1, 4]}
+]

@@ -13,9 +13,11 @@ document its architecture, tests, limitations, and operational tradeoffs.
 
 Location: [`projects/financial-research-copilot/`](projects/financial-research-copilot/)
 
-Current status: v0.1 PDF ingestion with page-aware extraction is implemented.
-Retrieval, answer generation, citations, evaluation, UI, deployment, and MCP
-integration remain planned work.
+Current status: local PDF extraction, sentence-aware chunking, lexical search,
+optional local semantic search, and page-level retrieval evaluation are
+implemented. The semantic benchmark remains unmeasured. Answer generation,
+answer citations, UI, deployment, and MCP integration remain planned work.
+See [project status](docs/PROJECT_STATUS.md) for verification and limitations.
 
 The initial scope is deliberately small:
 

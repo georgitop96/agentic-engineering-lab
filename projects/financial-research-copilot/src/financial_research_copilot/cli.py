@@ -4,6 +4,7 @@ import argparse
 from pathlib import Path
 
 from . import __version__
+from .evaluation import EvaluationDataError, evaluate, load_dataset, validate_gold_pages
 from .ingestion import PDFIngestionError, extract_pdf_pages
 from .retrieval import RetrievalError, chunk_pages, search_chunks
 from .semantic import (
@@ -56,6 +57,23 @@ def build_parser() -> argparse.ArgumentParser:
         default=0,
         help="complete sentences repeated between chunks (default: 0)",
     )
+
+    eval_parser = subparsers.add_parser(
+        "eval", help="evaluate ranked pages against a labeled JSON dataset"
+    )
+    eval_parser.add_argument("pdf_path", type=Path, help="path to a local PDF")
+    eval_parser.add_argument(
+        "--method",
+        choices=("lexical", "semantic"),
+        default="lexical",
+        help="retrieval method (default: lexical)",
+    )
+    eval_parser.add_argument(
+        "--dataset",
+        required=True,
+        type=Path,
+        help="path to a labeled JSON dataset",
+    )
     return parser
 
 
@@ -102,6 +120,52 @@ def main(argv: list[str] | None = None) -> int:
             print(f"Text: {chunk.text}")
             if chunk_number != len(chunks):
                 print()
+        return 0
+
+    if args.command == "eval":
+        try:
+            questions = load_dataset(args.dataset)
+            pages = extract_pdf_pages(args.pdf_path)
+            chunks = chunk_pages(pages)
+            if not chunks:
+                raise PDFIngestionError(
+                    "Evaluation requires extractable text; this PDF produced no "
+                    "chunks. Use a PDF with a text layer (OCR is not implemented)."
+                )
+            validate_gold_pages(questions, (page.page_number for page in pages))
+            if args.method == "semantic":
+                embedder = FastEmbedder()
+                retrieve = lambda question: semantic_search(
+                    chunks, question, embedder, limit=len(chunks)
+                )
+            else:
+                retrieve = lambda question: search_chunks(
+                    chunks, question, limit=len(chunks)
+                )
+            metrics = evaluate(questions, retrieve)
+        except (
+            PDFIngestionError,
+            EvaluationDataError,
+            RetrievalError,
+            SemanticSearchError,
+            ValueError,
+        ) as error:
+            print(f"Error: {error}")
+            return 2
+
+        print("Question | Retrieved pages | Gold pages | Hit@1 | Recall@2 | MRR")
+        for question in metrics.questions:
+            print(
+                f"{question.question} | "
+                f"{','.join(map(str, question.retrieved_pages)) or '-'} | "
+                f"{','.join(map(str, question.gold_pages))} | "
+                f"{question.hit_at_1:.2f} | {question.recall_at_2:.2f} | "
+                f"{question.mean_reciprocal_rank:.2f}"
+            )
+        print(
+            f"Average | - | - | {metrics.hit_at_1:.3f} | "
+            f"{metrics.recall_at_2:.3f} | {metrics.mean_reciprocal_rank:.3f}"
+        )
         return 0
 
     try:
