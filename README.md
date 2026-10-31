@@ -1,51 +1,71 @@
-# Agentic Engineering Lab
+# AI Engineering Lab
 
-A portfolio of complete, reproducible AI engineering applications.
+A portfolio of practical AI applications built to be installed, inspected, and
+evaluated by another engineer.
 
-The first application is the **Financial Research Copilot**, a local-first
-tool for asking evidence-backed questions about public financial reports.
-It is intentionally being built as a real application: the repository will
-document its architecture, tests, limitations, and operational tradeoffs.
+Each project develops a concrete user workflow with explicit architecture,
+reproducible examples, deterministic tests, and documented limitations. The
+first project is **Financial Research Copilot**, a local tool for finding
+evidence in financial reports.
 
-## Projects
+## First project: Financial Research Copilot
 
-### Financial Research Copilot
+Financial reports spread facts across pages and sections. The Copilot helps a
+researcher find relevant passages in one local PDF and inspect their source
+pages. Its current release is a retrieval CLI: it returns extracted passages
+and page metadata.
 
-Location: [`projects/financial-research-copilot/`](projects/financial-research-copilot/)
+| Available now | Planned |
+| --- | --- |
+| PDF text extraction and sentence-aware chunks | Evidence-backed answer generation and validated answer citations |
+| Lexical search and an optional local semantic adapter | Multi-document retrieval and persistent indexes |
+| Page retrieval evaluation on a labeled synthetic report | UI, deployment, and MCP integrations |
 
-Current status: local PDF extraction, sentence-aware chunking, lexical search,
-optional local semantic search, and page-level retrieval evaluation are
-implemented. The semantic benchmark remains unmeasured. Answer generation,
-answer citations, UI, deployment, and MCP integration remain planned work.
-See [project status](docs/PROJECT_STATUS.md) for verification and limitations.
+The current 12-question lexical fixture measures Hit@1 **0.917**, Recall@2
+**0.958**, and MRR **0.958**. These are development-fixture results, not
+real-world accuracy claims. Semantic retrieval quality has not yet been
+measured.
 
-The initial scope is deliberately small:
+[Project guide and CLI example](projects/financial-research-copilot/README.md)
+· [Verified project status](docs/PROJECT_STATUS.md)
+· [Roadmap](docs/roadmap.md)
 
-- ingest a local public or synthetic PDF;
-- retrieve relevant passages with page metadata;
-- answer one question from retrieved evidence;
-- show document and page citations;
-- run a deterministic, offline demonstration.
+## Try it locally
 
-## Repository map
+Requirements: Python 3.12 and `uv`. From the repository root:
 
-- `projects/` contains maintained, user-facing applications.
-- `docs/` contains cross-project architecture and decision records.
-- `.github/workflows/` contains automated checks.
+```bash
+cd projects/financial-research-copilot
+uv sync --locked
+uv run --offline --no-sync frc search tests/fixtures/synthetic_financial_report.pdf "ceramic housings"
+```
 
-## Development baseline
+Setup installs the locked project dependencies and may need network access.
+After setup, this lexical example runs locally without model weights,
+credentials, or paid services. The project guide includes the actual output,
+evaluation commands, and tests.
 
-- Python 3.12
-- `uv` for environments and dependency locking
-- tests that run without credentials or paid API calls
+## What this portfolio emphasizes
 
-See the project README for setup instructions and the current implementation
-status. Planned features are marked explicitly so the portfolio does not imply
-capabilities that are not yet available.
+- Small, explicit interfaces between extraction, retrieval, evaluation, and
+  optional model adapters.
+- Measurements that can be reproduced, with failure cases and limits stated.
+- Offline tests using fixtures and fakes rather than live model APIs.
+- Incremental milestones: implemented behavior and future plans are separated.
 
-## Safety and scope
+## Repository guide
 
-This portfolio is for software engineering and research assistance. It is not
-investment advice and does not place trades, modify accounts, or handle
-confidential bank data. External services and paid model calls must be opt-in
-and clearly documented.
+| Location | Purpose |
+| --- | --- |
+| [projects/financial-research-copilot](projects/financial-research-copilot/) | First application: source, tests, fixtures, and locked dependencies |
+| [docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md) | Verified capabilities, measurements, limitations, and pending work |
+| [docs/architecture.md](docs/architecture.md) | Current component boundaries and planned extensions |
+| [docs/roadmap.md](docs/roadmap.md) | Completed and upcoming milestones |
+| [.github/workflows/ci.yml](.github/workflows/ci.yml) | Test workflow configuration; no remote CI outcome is claimed here |
+
+## Scope and data
+
+Use public or synthetic reports for reproducible examples. PDF text remains
+local in the documented retrieval workflow; optional semantic setup may
+download model files. This software does not provide investment advice or
+perform trades, account changes, payments, or other financial actions.

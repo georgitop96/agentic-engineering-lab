@@ -6,34 +6,47 @@ Each maintained application lives under `projects/` and owns its source,
 tests, examples, dependencies, and user-facing documentation. Root `docs/`
 contains decisions and principles that apply across projects.
 
-## Financial Research Copilot (planned v0.1)
+## Financial Research Copilot: implemented retrieval path
 
-The first application will use this narrow flow:
+The current CLI coordinates these local components:
 
 ```text
 local PDF
-  -> page-aware extraction
-  -> deterministic chunks with document/page metadata
-  -> local lexical retrieval
-  -> evidence-constrained answerer
-  -> validated citations
+  -> ingestion.py: page-aware pypdf extraction
+  -> retrieval.py: deterministic sentence-aware chunks
+  -> lexical ranking OR semantic.py: optional FastEmbed/cosine ranking
+  -> CLI passages with document/page metadata
+
+JSON questions and gold pages + actual extracted page numbers
+  -> evaluation.py: gold-page validation
+  -> per-question retrieval using all ranked chunks
+  -> unique page ranks in first-seen order
+  -> Hit@1, Recall@2, MRR and terminal table
 ```
 
-The first implementation should work offline with synthetic or public reports.
-An optional model adapter may improve synthesis, but it must not be required
-for tests or the reproducible demo.
+Lexical retrieval and tests run offline after dependency setup. Semantic
+inference uses the optional local model; cached weights are required for an
+offline semantic run. There is no vector database or persistent index.
+See the [project guide](../projects/financial-research-copilot/README.md#current-architecture)
+for the Mermaid diagram and [verified status](PROJECT_STATUS.md) for measured
+capabilities and limitations.
 
 ### Boundaries
 
 - Extraction knows about PDF files, not model providers.
 - Retrieval returns evidence records, not prose answers.
-- Answering receives only the question and selected evidence.
-- Citation formatting is deterministic and independently testable.
-- Provider adapters are optional and have explicit timeout, cost, and privacy
-  behavior.
+- Evaluation compares page rankings with manual labels; it does not evaluate
+  generated answers or validate the sufficiency of a retrieved passage.
+- The optional embedding adapter implements a small interface and keeps model
+  inference separate from lexical retrieval.
 
-### Future layers
+### Planned extensions (not implemented)
 
-Multi-document indexes, hybrid retrieval, evaluation, a UI, deployment, and
-MCP integrations are roadmap items. They should be added only after the
-single-document path has useful tests and a clear failure mode.
+Evidence-constrained answering and validated answer citations are future
+layers. The intended boundary is to pass only the question and selected
+evidence to an answerer, then validate its output and citations independently.
+An insufficient-evidence answer path must accompany that feature.
+
+Broader evaluation, multi-document indexes, hybrid retrieval, a UI, deployment,
+and MCP integrations remain roadmap work. These do not appear in the current
+retrieval execution path.

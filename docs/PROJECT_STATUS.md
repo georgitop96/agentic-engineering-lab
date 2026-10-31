@@ -4,6 +4,10 @@ Verified 2026-10-31. Source: [project](../projects/financial-research-copilot/).
 This document records the local retrieval evaluation milestone; planned work
 below is not implemented functionality.
 
+[Project guide and architecture diagram](../projects/financial-research-copilot/README.md)
+· [Portfolio overview](../README.md)
+· [Repository roadmap](roadmap.md)
+
 ## Current architecture
 
 Python 3.12 with `uv`; `pypdf` is the only required runtime dependency.
