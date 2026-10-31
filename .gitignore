@@ -47,3 +47,6 @@ generated/
 .idea/
 .vscode/
 *.swp
+
+# Local financial reports and downloaded filings
+/projects/financial-research-copilot/data/
