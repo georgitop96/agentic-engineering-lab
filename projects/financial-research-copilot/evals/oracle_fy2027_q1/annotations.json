@@ -1,0 +1,1353 @@
+{
+  "dataset_status": "draft_independently_text_audited_pending_human_approval",
+  "source": {
+    "path": "data/oracle_fy2027_q1_10q.pdf",
+    "sha256": "3c9e939c3ac86d28b8047b5308b2fb8dfa6f859ace9ef452f2a2d0f1715474ff",
+    "pdf_page_count": 50,
+    "source_bytes": 575428,
+    "filing_period_end": "2026-08-31",
+    "fiscal_period": "FY2027 Q1",
+    "comparative_quarter_end": "2025-08-31",
+    "balance_sheet_comparison_date": "2026-05-31",
+    "provenance": "Local user-provided Oracle-labelled PDF; external publisher/SEC authenticity not independently verified."
+  },
+  "design_base_commit": "92f2ac7",
+  "verification": {
+    "pdf_parser": "pypdf 6.21.4",
+    "python": "3.12.16",
+    "evidence_matching": "Exact substring after whitespace normalization only; no ligature or numeric rewriting.",
+    "rendered_pdf_review_performed": false,
+    "retrieval_benchmark_performed": false,
+    "coordinator_excerpt_checks_passed": 77,
+    "independent_source_verified_ids": [
+      "Q01",
+      "Q02",
+      "Q03",
+      "Q04",
+      "Q05",
+      "Q06",
+      "Q07",
+      "Q08",
+      "Q09",
+      "Q10",
+      "Q11",
+      "Q12",
+      "Q13",
+      "Q14",
+      "Q15",
+      "Q16",
+      "Q17",
+      "Q18",
+      "Q19",
+      "Q20",
+      "Q21",
+      "Q22",
+      "Q23",
+      "Q24",
+      "Q25"
+    ],
+    "programmatic_matching_only_ids": [],
+    "human_approval_pending_ids": [
+      "Q01",
+      "Q02",
+      "Q03",
+      "Q04",
+      "Q05",
+      "Q06",
+      "Q07",
+      "Q08",
+      "Q09",
+      "Q10",
+      "Q11",
+      "Q12",
+      "Q13",
+      "Q14",
+      "Q15",
+      "Q16",
+      "Q17",
+      "Q18",
+      "Q19",
+      "Q20",
+      "Q21",
+      "Q22",
+      "Q23",
+      "Q24",
+      "Q25"
+    ],
+    "high_priority_human_review_ids": [
+      "Q02",
+      "Q04",
+      "Q06",
+      "Q07",
+      "Q09",
+      "Q11",
+      "Q12",
+      "Q13",
+      "Q14",
+      "Q15",
+      "Q18",
+      "Q25"
+    ],
+    "unresolved_item_factual_disagreements": [],
+    "independent_auditor_methods": "Original PDF read independently; ordinary and layout extraction checked; units, periods, minimal page sets and arithmetic audited for all25. No rendering or external publisher authentication.",
+    "reviewer_limit": "Quality review confirmed current split projections and replacements; page-disjoint split remains topic-overlapping and narrative-heavy in holdout."
+  },
+  "split": {
+    "development": [
+      "Q01",
+      "Q02",
+      "Q03",
+      "Q04",
+      "Q05",
+      "Q06",
+      "Q07",
+      "Q08",
+      "Q09",
+      "Q10",
+      "Q11",
+      "Q12",
+      "Q13",
+      "Q14",
+      "Q15"
+    ],
+    "holdout": [
+      "Q16",
+      "Q17",
+      "Q18",
+      "Q19",
+      "Q20",
+      "Q21",
+      "Q22",
+      "Q23",
+      "Q24",
+      "Q25"
+    ],
+    "status": "proposed_not_sealed_or_document_independent"
+  },
+  "items": {
+    "Q01": {
+      "split": "development",
+      "evidence_family": "D-liquidity/prepayments",
+      "type_and_difficulty": "table arithmetic / medium",
+      "reference_answer": "August 31, 2026 working capital = $55,630m − $47,514m = $8,116m; current ratio = 1.1708×. May 31, 2026: $46,567m − $41,764m = $4,803m; ratio = 1.1150×. Improvement: $3,313m.",
+      "minimal_sufficient_page_sets": [
+        [
+          3
+        ]
+      ],
+      "multi_page_required": false,
+      "evidence": [
+        {
+          "pdf_page": 3,
+          "excerpt": "Total current assets 55,630 46,567"
+        },
+        {
+          "pdf_page": 3,
+          "excerpt": "Total current liabilities 47,514 41,764"
+        }
+      ],
+      "label_notes": "`[3]` sufficient. P35 duplicates working-capital totals but does not supply both current-ratio inputs.",
+      "caveats": [],
+      "audit_status": "independently_verified_extracted_text",
+      "human_review_required": true,
+      "human_review_reason": "Human dataset approval remains required; no rendered-PDF check or external publisher authentication was performed.",
+      "tags": [
+        "table",
+        "numerical",
+        "calculation"
+      ],
+      "reporting_period": "August 31, 2026 and May 31, 2026 balances",
+      "answer_units": "USD millions; current ratio in times",
+      "human_review_priority": "normal",
+      "independent_auditor_finding": "Working capital, four-decimal current ratios and change verified.",
+      "verification_methods": [
+        "independent_original_pdf_text_read",
+        "whitespace_normalized_excerpt_match",
+        "pypdf_layout_extraction_cross_check_not_rendering",
+        "independent_arithmetic_check"
+      ]
+    },
+    "Q02": {
+      "split": "development",
+      "evidence_family": "D-liquidity/prepayments",
+      "type_and_difficulty": "cross-statement reconciliation / hard",
+      "reference_answer": "At August 31, 2026, $38,934m − $36,369m = $2,565m restricted cash, consistent with Note 1’s rounded $2.6bn. Classified in prepaid expenses and other current assets.",
+      "minimal_sufficient_page_sets": [
+        [
+          3,
+          7,
+          8
+        ]
+      ],
+      "multi_page_required": true,
+      "evidence": [
+        {
+          "pdf_page": 3,
+          "excerpt": "Cash and cash equivalents $ 36,369 $ 31,289"
+        },
+        {
+          "pdf_page": 7,
+          "excerpt": "Cash, cash equivalents and restricted cash at end of period $ 38,934 $ 10,445"
+        },
+        {
+          "pdf_page": 8,
+          "excerpt": "Restricted cash as of August 31, 2026 was $2.6 billion and was included within prepaid expenses and other current assets as presented within our condensed consolidated balance sheets."
+        }
+      ],
+      "label_notes": "The question explicitly requires the two statements plus the restricted-cash disclosure in the accounting-policies note. Pages 3, 7 and 8 are required under that scope. Page 35 corroborates the rounded amount/classification but is outside that scope.",
+      "caveats": [
+        "$2,565m is derived from statement totals; Note 1 reports a rounded amount."
+      ],
+      "audit_status": "independently_verified_extracted_text",
+      "human_review_required": true,
+      "human_review_reason": "Human dataset approval remains required; no rendered-PDF check or external publisher authentication was performed. Review the question's source scope and interpretation/rounding caveats before approval.",
+      "tags": [
+        "table",
+        "numerical",
+        "multi_page",
+        "reconciliation"
+      ],
+      "reporting_period": "August 31, 2026 balances",
+      "answer_units": "USD millions and rounded USD billions",
+      "human_review_priority": "high",
+      "independent_auditor_finding": "Exact restricted-cash reconciliation and rounded note disclosure agree under the stated source scope.",
+      "verification_methods": [
+        "independent_original_pdf_text_read",
+        "whitespace_normalized_excerpt_match",
+        "pypdf_layout_extraction_cross_check_not_rendering",
+        "independent_arithmetic_check"
+      ]
+    },
+    "Q03": {
+      "split": "development",
+      "evidence_family": "D-revenue/segments",
+      "type_and_difficulty": "numerical / medium",
+      "reference_answer": "Quarter ended August 31, 2026: $6,728m / $19,345m = 34.779%. Comparative 2025 quarter: $4,277m / $14,926m = 28.655%. Increase: 6.124 percentage points, approximately 6.1 points.",
+      "minimal_sufficient_page_sets": [
+        [
+          4
+        ],
+        [
+          28
+        ]
+      ],
+      "multi_page_required": false,
+      "evidence": [
+        {
+          "pdf_page": 4,
+          "excerpt": "Total revenues 19,345 14,926"
+        },
+        {
+          "pdf_page": 4,
+          "excerpt": "Operating income 6,728 4,277"
+        },
+        {
+          "pdf_page": 28,
+          "excerpt": "Total revenues 19,345 30% 30% 14,926"
+        },
+        {
+          "pdf_page": 28,
+          "excerpt": "Total Operating Margin $ 6,728 57% 57% $ 4,277"
+        }
+      ],
+      "label_notes": "Either `[4]` or `[28]` sufficient; both are not mandatory.",
+      "caveats": [
+        "Calculations use reported million-dollar amounts; the report separately rounds percentages to 35% and 29%."
+      ],
+      "audit_status": "independently_verified_extracted_text",
+      "human_review_required": true,
+      "human_review_reason": "Human dataset approval remains required; no rendered-PDF check or external publisher authentication was performed.",
+      "tags": [
+        "table",
+        "numerical",
+        "calculation"
+      ],
+      "reporting_period": "Three months ended August 31, 2026 and 2025",
+      "answer_units": "Percent and percentage points; source inputs USD millions",
+      "human_review_priority": "normal",
+      "independent_auditor_finding": "Both alternative pages supply the dollar inputs; derived margins and percentage-point change verified.",
+      "verification_methods": [
+        "independent_original_pdf_text_read",
+        "whitespace_normalized_excerpt_match",
+        "pypdf_layout_extraction_cross_check_not_rendering",
+        "independent_arithmetic_check"
+      ]
+    },
+    "Q04": {
+      "split": "development",
+      "evidence_family": "D-liquidity/prepayments",
+      "type_and_difficulty": "numerical plus accounting synthesis / hard",
+      "reference_answer": "Quarter ended August 31, 2026: $11,363m / $23,103m = 49.184%. Mechanical operating cash flow excluding that line = $23,103m − $11,363m = $11,740m. Financing-component effects are reflected in deferred revenue and recognized over performance; related interest expense is recognized separately from revenue.",
+      "minimal_sufficient_page_sets": [
+        [
+          7,
+          9
+        ]
+      ],
+      "multi_page_required": true,
+      "evidence": [
+        {
+          "pdf_page": 7,
+          "excerpt": "Increase in deferred revenues from customer prepayments with signiﬁcant ﬁnancing component 11,363 —"
+        },
+        {
+          "pdf_page": 7,
+          "excerpt": "Net cash provided by operating activities 23,103 8,140"
+        },
+        {
+          "pdf_page": 9,
+          "excerpt": "We recognize interest expense related to signiﬁcant ﬁnancing components separately from revenue."
+        },
+        {
+          "pdf_page": 9,
+          "excerpt": "The eﬀects of signiﬁcant ﬁnancing components are reﬂected in deferred revenues and recognized over the period of performance."
+        }
+      ],
+      "label_notes": "`[7,9]` mandatory. P35–36 corroborate rounded cash amounts, but not the complete accounting explanation.",
+      "caveats": [
+        "The subtraction is a requested mechanical calculation, not a company-reported adjusted metric or forecast."
+      ],
+      "audit_status": "independently_verified_extracted_text",
+      "human_review_required": true,
+      "human_review_reason": "Human dataset approval remains required; no rendered-PDF check or external publisher authentication was performed. Review the question's source scope and interpretation/rounding caveats before approval.",
+      "tags": [
+        "table",
+        "numerical",
+        "calculation",
+        "narrative",
+        "multi_page"
+      ],
+      "reporting_period": "Three months ended August 31, 2026",
+      "answer_units": "Percent and USD millions",
+      "human_review_priority": "high",
+      "answer_components": [
+        "Cash-flow prepayment proportion from page 7",
+        "Mechanical cash-flow subtotal from page 7, not a reported adjusted metric",
+        "Financing-component accounting explanation from page 9"
+      ],
+      "independent_auditor_finding": "Prepayment proportion, mechanical subtotal and separate-interest accounting explanation verified.",
+      "verification_methods": [
+        "independent_original_pdf_text_read",
+        "whitespace_normalized_excerpt_match",
+        "pypdf_layout_extraction_cross_check_not_rendering",
+        "independent_arithmetic_check"
+      ]
+    },
+    "Q05": {
+      "split": "development",
+      "evidence_family": "D-liquidity/prepayments",
+      "type_and_difficulty": "financial calculation / medium",
+      "reference_answer": "Quarter ended August 31, 2026: $23,103m − $28,499m = −$5,396m. Comparative 2025 quarter: $8,140m − $8,502m = −$362m. Deterioration: $5,034m.",
+      "minimal_sufficient_page_sets": [
+        [
+          7
+        ],
+        [
+          36
+        ]
+      ],
+      "multi_page_required": false,
+      "evidence": [
+        {
+          "pdf_page": 7,
+          "excerpt": "Net cash provided by operating activities 23,103 8,140"
+        },
+        {
+          "pdf_page": 7,
+          "excerpt": "Capital expenditures (28,499) (8,502)"
+        },
+        {
+          "pdf_page": 36,
+          "excerpt": "Net cash provided by operating activities $ 23,103 184% $ 8,140"
+        },
+        {
+          "pdf_page": 36,
+          "excerpt": "Capital expenditures (28,499) 235% (8,502)"
+        },
+        {
+          "pdf_page": 36,
+          "excerpt": "Free cash ﬂow $ (5,396) * $ (362)"
+        }
+      ],
+      "label_notes": "Either `[7]` or `[36]` sufficient.",
+      "caveats": [],
+      "audit_status": "independently_verified_extracted_text",
+      "human_review_required": true,
+      "human_review_reason": "Human dataset approval remains required; no rendered-PDF check or external publisher authentication was performed.",
+      "tags": [
+        "table",
+        "numerical",
+        "calculation"
+      ],
+      "reporting_period": "Three months ended August 31, 2026 and 2025",
+      "answer_units": "USD millions",
+      "human_review_priority": "normal",
+      "independent_auditor_finding": "Both alternative pages support negative free cash flow and its deterioration.",
+      "verification_methods": [
+        "independent_original_pdf_text_read",
+        "whitespace_normalized_excerpt_match",
+        "pypdf_layout_extraction_cross_check_not_rendering",
+        "independent_arithmetic_check"
+      ]
+    },
+    "Q06": {
+      "split": "development",
+      "evidence_family": "D-revenue/segments",
+      "type_and_difficulty": "low-overlap narrative comparison / medium",
+      "reference_answer": "Required general comparison: perpetual software-license revenue is generally recognized when software becomes available to download and use; cloud subscription and software-support revenue is recognized over the contractual terms. Additional ratable-recognition, billing and usage-consumption details are optional for this question and are supported by the cited additional pages.",
+      "minimal_sufficient_page_sets": [
+        [
+          18
+        ],
+        [
+          23,
+          24
+        ]
+      ],
+      "multi_page_required": false,
+      "evidence": [
+        {
+          "pdf_page": 18,
+          "excerpt": "Cloud revenues are generated from applications and infrastructure oﬀerings that are typically contracted with customers directly, delivered to customers over time with our revenue recognition occurring over the contractual terms and renewed by customers upon completion of the contractual terms."
+        },
+        {
+          "pdf_page": 18,
+          "excerpt": "We generally recognize revenues at the point in time the software is made available to the customer to download and use, which typically is immediate upon signature of the license contract; and"
+        },
+        {
+          "pdf_page": 18,
+          "excerpt": "software support revenues, which are typically contracted with customers directly, billed to customers in advance, delivered to customers over time with our revenue recognition occurring over the contractual terms and renewed by customers upon completion of the contractual terms."
+        },
+        {
+          "pdf_page": 23,
+          "excerpt": "are recognized as revenues ratably over the contractual period of the cloud contract or, in the case of usage model contracts, as the cloud services are consumed over time"
+        },
+        {
+          "pdf_page": 24,
+          "excerpt": "Our software license transactions are generally perpetual in nature and are generally recognized as revenues up front at the point in time when the software is made available to the customer to download and use."
+        },
+        {
+          "pdf_page": 24,
+          "excerpt": "recognized as revenues ratably over the contractual period that the support services are provided, which is generally one year."
+        }
+      ],
+      "label_notes": "Either `[18]` or `[23,24]` sufficient. Consumption-specific detail is explicit on p23; it need not be required for an otherwise complete general timing comparison.",
+      "caveats": [
+        "The required answer is the general timing comparison. Usage-model consumption detail is optional; page 18 alone is sufficient without it."
+      ],
+      "audit_status": "independently_verified_extracted_text",
+      "human_review_required": true,
+      "human_review_reason": "Human dataset approval remains required; no rendered-PDF check or external publisher authentication was performed. Review the question's source scope and interpretation/rounding caveats before approval.",
+      "tags": [
+        "narrative",
+        "paraphrase",
+        "comparison"
+      ],
+      "reporting_period": "Revenue-recognition policies disclosed in this quarterly filing",
+      "answer_units": "Narrative timing; no numeric unit",
+      "human_review_priority": "high",
+      "independent_auditor_finding": "General timing comparison verified; usage and extra ratable-recognition details are optional.",
+      "verification_methods": [
+        "independent_original_pdf_text_read",
+        "whitespace_normalized_excerpt_match"
+      ]
+    },
+    "Q07": {
+      "split": "development",
+      "evidence_family": "D-revenue/segments",
+      "type_and_difficulty": "multi-page calculation and explanation / hard",
+      "reference_answer": "RPO increased from $455bn at August 31, 2025 to $664bn at August 31, 2026: $209bn, or 45.934%. The increase primarily reflected significant cloud contracts entered during the period. Beyond five years: 100% − 13% − 37% − 34% = approximately 16%; $664bn × 16% = approximately $106.24bn.",
+      "minimal_sufficient_page_sets": [
+        [
+          9,
+          37
+        ]
+      ],
+      "multi_page_required": true,
+      "evidence": [
+        {
+          "pdf_page": 9,
+          "excerpt": "Remaining performance obligations were $664 billion as of August 31, 2026, of which we expect to recognize approximately 13% as revenues over the next twelve months, 37% over the subsequent month 13 to month 36, 34% over the subsequent month 37 to month 60 and the remainder thereafter."
+        },
+        {
+          "pdf_page": 37,
+          "excerpt": "Remaining performance obligations were $664 billion and $455 billion as of August 31, 2026 and 2025, respectively."
+        },
+        {
+          "pdf_page": 37,
+          "excerpt": "The increase in remaining performance obligations as of August 31, 2026 in comparison to August 31, 2025 was primarily attributable to certain signiﬁcant cloud contracts that were entered into during the period."
+        }
+      ],
+      "label_notes": "`[9,37]` mandatory.",
+      "caveats": [
+        "Timing percentages are approximate expectations, not guaranteed future revenue."
+      ],
+      "audit_status": "independently_verified_extracted_text",
+      "human_review_required": true,
+      "human_review_reason": "Human dataset approval remains required; no rendered-PDF check or external publisher authentication was performed. Review the question's source scope and interpretation/rounding caveats before approval.",
+      "tags": [
+        "numerical",
+        "calculation",
+        "narrative",
+        "multi_page"
+      ],
+      "reporting_period": "August 31, 2026 versus August 31, 2025; future recognition schedule",
+      "answer_units": "USD billions and percent; approximate schedule",
+      "human_review_priority": "high",
+      "independent_auditor_finding": "RPO growth, cause and approximate recognition beyond five years verified; both pages required.",
+      "verification_methods": [
+        "independent_original_pdf_text_read",
+        "whitespace_normalized_excerpt_match",
+        "independent_arithmetic_check"
+      ]
+    },
+    "Q08": {
+      "split": "development",
+      "evidence_family": "D-liquidity/prepayments",
+      "type_and_difficulty": "table decomposition / medium",
+      "reference_answer": "Total deferred revenue increased $15,394m: $30,789m − $15,395m. Non-current deferred revenue increased $10,624m: $16,103m − $5,479m. Its contribution to total growth was 69.014%.",
+      "minimal_sufficient_page_sets": [
+        [
+          13
+        ]
+      ],
+      "multi_page_required": false,
+      "evidence": [
+        {
+          "pdf_page": 13,
+          "excerpt": "Deferred revenues, non-current (in other non-current liabilities) 16,103 5,479"
+        },
+        {
+          "pdf_page": 13,
+          "excerpt": "Total deferred revenues $ 30,789 $ 15,395"
+        }
+      ],
+      "label_notes": "`[13]` sufficient.",
+      "caveats": [
+        "Does not treat the $6,348m current cloud line as total deferred cloud revenue."
+      ],
+      "audit_status": "independently_verified_extracted_text",
+      "human_review_required": true,
+      "human_review_reason": "Human dataset approval remains required; no rendered-PDF check or external publisher authentication was performed.",
+      "tags": [
+        "table",
+        "numerical",
+        "calculation",
+        "paraphrase"
+      ],
+      "reporting_period": "August 31, 2026 versus May 31, 2026 balances",
+      "answer_units": "USD millions and percent",
+      "human_review_priority": "normal",
+      "independent_auditor_finding": "Unearned/deferred revenue paraphrase and noncurrent growth contribution verified.",
+      "verification_methods": [
+        "independent_original_pdf_text_read",
+        "whitespace_normalized_excerpt_match",
+        "pypdf_layout_extraction_cross_check_not_rendering",
+        "independent_arithmetic_check"
+      ]
+    },
+    "Q09": {
+      "split": "development",
+      "evidence_family": "D-commitments/financing",
+      "type_and_difficulty": "multi-page accounting distinction / hard",
+      "reference_answer": "During the quarter ended August 31, 2026, ROU assets obtained for lease obligations totaled $6,442m: operating $4,903m + finance $1,539m. Additional commitments were $288bn, substantially all data centers, generally commencing Q2 fiscal 2027 through fiscal 2029, with 15–19-year terms; these were excluded from the August 31 balance sheet and maturity table.",
+      "minimal_sufficient_page_sets": [
+        [
+          14,
+          15
+        ]
+      ],
+      "multi_page_required": true,
+      "evidence": [
+        {
+          "pdf_page": 14,
+          "excerpt": "ROU assets obtained in exchange for lease obligations: Operating leases $ 4,903 $ 3,181 Finance leases $ 1,539 $ 1,122"
+        },
+        {
+          "pdf_page": 15,
+          "excerpt": "As of August 31, 2026, we had $288 billion of additional lease commitments, substantially all related to data center arrangements, that are generally expected to commence between the second quarter of ﬁscal 2027 and ﬁscal 2029 and for terms of ﬁfteen to nineteen years that were not reﬂected on our condensed consolidated balance sheets as of August 31, 2026 or in the maturities table above."
+        }
+      ],
+      "label_notes": "`[14,15]` mandatory.",
+      "caveats": [
+        "The quarterly asset additions and future commitments measure different things and should not be combined into one liability total."
+      ],
+      "audit_status": "independently_verified_extracted_text",
+      "human_review_required": true,
+      "human_review_reason": "Human dataset approval remains required; no rendered-PDF check or external publisher authentication was performed. Review the question's source scope and interpretation/rounding caveats before approval.",
+      "tags": [
+        "table",
+        "numerical",
+        "narrative",
+        "multi_page"
+      ],
+      "reporting_period": "Quarter ended August 31, 2026 and lease commitments as of that date",
+      "answer_units": "USD millions for quarterly assets; USD billions for commitments; fiscal years and years",
+      "human_review_priority": "high",
+      "answer_components": [
+        "Quarterly operating and finance ROU asset additions from page 14",
+        "Future unrecognized lease commitments, commencement window and terms from page 15",
+        "Explicit distinction between different accounting measures"
+      ],
+      "independent_auditor_finding": "ROU asset additions and separate future lease commitments, dates and terms verified.",
+      "verification_methods": [
+        "independent_original_pdf_text_read",
+        "whitespace_normalized_excerpt_match",
+        "pypdf_layout_extraction_cross_check_not_rendering",
+        "independent_arithmetic_check"
+      ]
+    },
+    "Q10": {
+      "split": "development",
+      "evidence_family": "D-commitments/financing",
+      "type_and_difficulty": "maturity-table calculation / medium",
+      "reference_answer": "At August 31, 2026, obligations through fiscal 2029 totaled $15,488m: $5,449m + $6,176m + $3,863m. This is 45.353% of the $34,150m table total.",
+      "minimal_sufficient_page_sets": [
+        [
+          15
+        ]
+      ],
+      "multi_page_required": false,
+      "evidence": [
+        {
+          "pdf_page": 15,
+          "excerpt": "Remainder of ﬁscal 2027 $ 5,449 Fiscal 2028 6,176 Fiscal 2029 3,863"
+        },
+        {
+          "pdf_page": 15,
+          "excerpt": "Total $ 34,150"
+        }
+      ],
+      "label_notes": "`[15]` sufficient; explicitly scoped to the unconditional-obligations table, excluding the separate lease schedule.",
+      "caveats": [],
+      "audit_status": "independently_verified_extracted_text",
+      "human_review_required": true,
+      "human_review_reason": "Human dataset approval remains required; no rendered-PDF check or external publisher authentication was performed.",
+      "tags": [
+        "table",
+        "numerical",
+        "calculation"
+      ],
+      "reporting_period": "As of August 31, 2026; remainder FY2027 through FY2029",
+      "answer_units": "USD millions and percent",
+      "human_review_priority": "normal",
+      "independent_auditor_finding": "Unconditional-obligation maturity aggregation and proportion verified; leases excluded.",
+      "verification_methods": [
+        "independent_original_pdf_text_read",
+        "whitespace_normalized_excerpt_match",
+        "pypdf_layout_extraction_cross_check_not_rendering",
+        "independent_arithmetic_check"
+      ]
+    },
+    "Q11": {
+      "split": "development",
+      "evidence_family": "D-commitments/financing",
+      "type_and_difficulty": "financing calculation / medium",
+      "reference_answer": "Quarter ended August 31, 2026: approximately 141m shares, $19.9bn net proceeds. Rounded implied net proceeds per share: $19,900m / 141m = approximately $141.13/share.",
+      "minimal_sufficient_page_sets": [
+        [
+          15
+        ],
+        [
+          37
+        ]
+      ],
+      "multi_page_required": false,
+      "evidence": [
+        {
+          "pdf_page": 15,
+          "excerpt": "During the ﬁrst quarter ended August 31, 2026, we fully utilized the ATM Program and issued 141 million shares of common stock under the ATM Program for net proceeds of $19.9 billion."
+        },
+        {
+          "pdf_page": 37,
+          "excerpt": "During the ﬁrst quarter ended August 31, 2026, we fully utilized the ATM Program and issued approximately 141 million shares of common stock under the ATM Program for net proceeds of $19.9 billion."
+        }
+      ],
+      "label_notes": "Either `[15]` or `[37]` sufficient. P6–7 disclose more precise net proceeds but do not independently supply the issued-share count.",
+      "caveats": [
+        "Implied proceeds per share use rounded inputs; this is not an exact execution price."
+      ],
+      "audit_status": "independently_verified_extracted_text",
+      "human_review_required": true,
+      "human_review_reason": "Human dataset approval remains required; no rendered-PDF check or external publisher authentication was performed. Review the question's source scope and interpretation/rounding caveats before approval.",
+      "tags": [
+        "numerical",
+        "calculation"
+      ],
+      "reporting_period": "Quarter ended August 31, 2026",
+      "answer_units": "Millions of shares; USD billions; USD per share using rounded inputs",
+      "human_review_priority": "high",
+      "independent_auditor_finding": "Rounded shares/proceeds and implied net proceeds per share verified, not an execution price.",
+      "verification_methods": [
+        "independent_original_pdf_text_read",
+        "whitespace_normalized_excerpt_match",
+        "independent_arithmetic_check"
+      ]
+    },
+    "Q12": {
+      "split": "development",
+      "evidence_family": "D-restructuring",
+      "type_and_difficulty": "multi-page estimate reconciliation / hard",
+      "reference_answer": "At August 31, 2026, expected costs not yet accrued for the 2026 plan were $132m: $2,103m expected program costs − $1,971m accrued to date. Separately, management supplemented the plan by approximately $700m after August 31, 2026.",
+      "minimal_sufficient_page_sets": [
+        [
+          12,
+          13
+        ]
+      ],
+      "multi_page_required": true,
+      "evidence": [
+        {
+          "pdf_page": 12,
+          "excerpt": "Subsequent to August 31, 2026, our management supplemented the 2026 Restructuring Plan by approximately $700 million to reﬂect additional actions that we expect to take."
+        },
+        {
+          "pdf_page": 13,
+          "excerpt": "Total 2026 Restructuring Plan $ 567 $ 161 $ 6 $ (324) $ — $ 410 $ 1,971 $ 2,103"
+        }
+      ],
+      "label_notes": "`[12,13]` mandatory.",
+      "caveats": [
+        "$132m is not the unpaid restructuring liability; the row separately reports a $410m accrued balance."
+      ],
+      "audit_status": "independently_verified_extracted_text",
+      "human_review_required": true,
+      "human_review_reason": "Human dataset approval remains required; no rendered-PDF check or external publisher authentication was performed. Review the question's source scope and interpretation/rounding caveats before approval.",
+      "tags": [
+        "table",
+        "numerical",
+        "calculation",
+        "multi_page"
+      ],
+      "reporting_period": "August 31, 2026 and subsequent disclosed plan supplement",
+      "answer_units": "USD millions",
+      "human_review_priority": "high",
+      "independent_auditor_finding": "Costs not yet accrued and subsequent supplement verified; distinguish unpaid accrued balance.",
+      "verification_methods": [
+        "independent_original_pdf_text_read",
+        "whitespace_normalized_excerpt_match",
+        "pypdf_layout_extraction_cross_check_not_rendering",
+        "independent_arithmetic_check"
+      ]
+    },
+    "Q13": {
+      "split": "development",
+      "evidence_family": "D-tax",
+      "type_and_difficulty": "numerical and narrative / medium",
+      "reference_answer": "Effective tax rates: 15.1% for the quarter ended August 31, 2026 and 14.6% for the comparative 2025 quarter. Net deferred tax assets: $11.3bn at August 31, 2026, $11.2bn at May 31, 2026. Realization requires sufficient future taxable income in appropriate jurisdictions to benefit from temporary-difference reversals, loss carryforwards and credit carryforwards.",
+      "minimal_sufficient_page_sets": [
+        [
+          17
+        ]
+      ],
+      "multi_page_required": false,
+      "evidence": [
+        {
+          "pdf_page": 17,
+          "excerpt": "Our eﬀective tax rates were 15.1% and 14.6% for the three months ended August 31, 2026 and 2025, respectively."
+        },
+        {
+          "pdf_page": 17,
+          "excerpt": "Our net deferred tax assets were $11.3 billion and $11.2 billion as of August 31, 2026 and May 31, 2026, respectively."
+        },
+        {
+          "pdf_page": 17,
+          "excerpt": "Realization of our net deferred tax assets is dependent upon our generation of suﬃcient taxable income in future years in appropriate tax jurisdictions to obtain beneﬁt from the reversal of temporary diﬀerences, net operating loss carryforwards and tax credit carryforwards."
+        }
+      ],
+      "label_notes": "`[17]` sufficient. P29 and p35 duplicate rates but not the complete deferred-tax answer.",
+      "caveats": [
+        "Uses net deferred tax assets from Note 8, rather than the balance sheet’s differently presented deferred-tax asset line."
+      ],
+      "audit_status": "independently_verified_extracted_text",
+      "human_review_required": true,
+      "human_review_reason": "Human dataset approval remains required; no rendered-PDF check or external publisher authentication was performed. Review the question's source scope and interpretation/rounding caveats before approval.",
+      "tags": [
+        "numerical",
+        "narrative"
+      ],
+      "reporting_period": "Quarterly rates: three months ended August 31, 2026 and 2025; balances: August 31 and May 31, 2026",
+      "answer_units": "Percent and USD billions",
+      "human_review_priority": "high",
+      "answer_components": [
+        "Comparative quarterly effective tax rates",
+        "Net deferred-tax balances at two dates",
+        "Conditions for realization of net deferred-tax assets"
+      ],
+      "independent_auditor_finding": "Rates, net deferred-tax assets and realization condition verified.",
+      "verification_methods": [
+        "independent_original_pdf_text_read",
+        "whitespace_normalized_excerpt_match"
+      ]
+    },
+    "Q14": {
+      "split": "development",
+      "evidence_family": "D-revenue/segments",
+      "type_and_difficulty": "multi-page segment reconciliation / hard",
+      "reference_answer": "Quarter ended August 31, 2026 segment margins: cloud and software $9,358m, hardware $452m, services $445m. Sum = $10,255m. Consolidated pretax income = $5,607m; net reconciliation reduction = $4,648m.",
+      "minimal_sufficient_page_sets": [
+        [
+          19,
+          20
+        ]
+      ],
+      "multi_page_required": true,
+      "evidence": [
+        {
+          "pdf_page": 19,
+          "excerpt": "Revenues $ 17,157 $ 12,907 Cloud and software expenses 6,235 3,418 Sales and marketing expenses 1,564 1,798 Margin $ 9,358 $ 7,691"
+        },
+        {
+          "pdf_page": 19,
+          "excerpt": "Revenues $ 774 $ 670 Hardware expenses 272 169 Sales and marketing expenses 50 54 Margin $ 452 $ 447"
+        },
+        {
+          "pdf_page": 19,
+          "excerpt": "Revenues $ 1,414 $ 1,349 Services expenses 969 1,017 Margin $ 445 $ 332"
+        },
+        {
+          "pdf_page": 20,
+          "excerpt": "Total margin for operating segments $ 10,255 $ 8,470"
+        },
+        {
+          "pdf_page": 20,
+          "excerpt": "Income before income taxes $ 5,607 $ 3,427"
+        }
+      ],
+      "label_notes": "Scoped to the operating-segments note's segment-results and reconciliation tables, requiring pages 19 and 20. MD&A pages 30–32 and statement page 4 give alternative partial facts but are outside that source scope.",
+      "caveats": [
+        "Segment margins exclude items included in consolidated results; they are not interchangeable with GAAP operating income."
+      ],
+      "audit_status": "independently_verified_extracted_text",
+      "human_review_required": true,
+      "human_review_reason": "Human dataset approval remains required; no rendered-PDF check or external publisher authentication was performed. Review the question's source scope and interpretation/rounding caveats before approval.",
+      "tags": [
+        "table",
+        "numerical",
+        "calculation",
+        "multi_page"
+      ],
+      "reporting_period": "Three months ended August 31, 2026",
+      "answer_units": "USD millions",
+      "human_review_priority": "high",
+      "independent_auditor_finding": "Note-scoped segment margins, sum and net pretax reconciliation reduction verified.",
+      "verification_methods": [
+        "independent_original_pdf_text_read",
+        "whitespace_normalized_excerpt_match",
+        "pypdf_layout_extraction_cross_check_not_rendering",
+        "independent_arithmetic_check"
+      ]
+    },
+    "Q15": {
+      "split": "development",
+      "evidence_family": "D-revenue/segments",
+      "type_and_difficulty": "low-overlap financial explanation / medium",
+      "reference_answer": "Reported cloud-and-software segment margin increased from $7,691m to $9,358m, or $1,667m: revenue increased by $4,250m ($17,157m − $12,907m), exceeding the $2,583m expense increase ($7,799m − $5,216m). Expenses grew faster proportionally than revenue, so the rounded reported margin percentage fell from 60% to 55%, a 5-percentage-point decline, in Q1 fiscal 2027 versus Q1 fiscal 2026. On a constant-currency basis, management attributes the margin-dollar increase to higher revenues and the lower margin percentage to higher infrastructure expenses supporting cloud-infrastructure growth. Keep that constant-currency causal discussion separate from the reported table amounts and rounded percentage-point change. These are segment margins, with the exclusions described in the table footnote, not consolidated GAAP operating income.",
+      "minimal_sufficient_page_sets": [
+        [
+          30
+        ]
+      ],
+      "multi_page_required": false,
+      "evidence": [
+        {
+          "pdf_page": 30,
+          "excerpt": "Total Margin % 55% 60%"
+        },
+        {
+          "pdf_page": 30,
+          "excerpt": "Total margin as a percentage of revenues in constant currency decreased in the ﬁrst quarter of ﬁscal 2027, relative to the ﬁrst quarter of ﬁscal 2026, due to an increase in cloud and software business’ total expenses driven by higher infrastructure expenses to support growth in our cloud infrastructure oﬀering."
+        },
+        {
+          "pdf_page": 30,
+          "excerpt": "Total revenues 17,157 33% 33% 12,907"
+        },
+        {
+          "pdf_page": 30,
+          "excerpt": "Total expenses 7,799 50% 49% 5,216"
+        },
+        {
+          "pdf_page": 30,
+          "excerpt": "Total Margin $ 9,358 22% 22% $ 7,691"
+        },
+        {
+          "pdf_page": 30,
+          "excerpt": "Excluding the eﬀects of currency rate ﬂuctuations, our cloud and software business’ total margin increased in the ﬁrst quarter of ﬁscal 2027, relative to the ﬁrst quarter of ﬁscal 2026, due to increases in total revenues for this business as discussed above."
+        },
+        {
+          "pdf_page": 30,
+          "excerpt": "Excludes stock-based compensation and certain expense allocations. Also excludes amortization of intangible assets and certain other GAAP-based expenses, which were not allocated to our operating segment results for purposes of reporting to and review by our CODMs, as further described under “Presentation of Operating Segment Results and Other Financial Information” above."
+        }
+      ],
+      "label_notes": "`[30]` sufficient for the complete explanation.",
+      "caveats": [
+        "Rounded table percentages are distinguished from the explicitly constant-currency causal discussion.",
+        "Segment margin excludes stock-based compensation, certain expense allocations, amortization of intangible assets and certain other GAAP-based expenses as described in the table footnote."
+      ],
+      "audit_status": "independently_verified_extracted_text",
+      "human_review_required": true,
+      "human_review_reason": "Human dataset approval remains required; no rendered-PDF check or external publisher authentication was performed. Review the question's source scope and interpretation/rounding caveats before approval.",
+      "tags": [
+        "narrative",
+        "numerical",
+        "paraphrase"
+      ],
+      "reporting_period": "FY2027 Q1 versus FY2026 Q1",
+      "answer_units": "USD millions; rounded percent and percentage points; not currency growth percentages",
+      "human_review_priority": "high",
+      "independent_auditor_finding": "Rounded reported margin change and explicitly constant-currency explanation verified separately. Finalization review directly checked page 30 ordinary and layout text extraction: reported revenue, expense and margin rows, the margin-dollar growth explanation and segment exclusions support the complete question; no rendered-PDF review performed.",
+      "verification_methods": [
+        "independent_original_pdf_text_read",
+        "whitespace_normalized_excerpt_match",
+        "pypdf_layout_extraction_cross_check_not_rendering",
+        "independent_arithmetic_check"
+      ]
+    },
+    "Q16": {
+      "split": "holdout",
+      "evidence_family": "H-fair-value-policy",
+      "type_and_difficulty": "hierarchy classification with source terminology / easy",
+      "reference_answer": "Level 1: quoted active-market prices for identical instruments. Level 2: other observable inputs, directly or indirectly. Level 3: significant unobservable inputs supported by little or no market activity.",
+      "minimal_sufficient_page_sets": [
+        [
+          10
+        ]
+      ],
+      "multi_page_required": false,
+      "evidence": [
+        {
+          "pdf_page": 10,
+          "excerpt": "Level 1: quoted prices in active markets for identical assets or liabilities;"
+        },
+        {
+          "pdf_page": 10,
+          "excerpt": "Level 2: inputs other than Level 1 that are observable, either directly or indirectly"
+        },
+        {
+          "pdf_page": 10,
+          "excerpt": "Level 3: unobservable inputs that are supported by little or no market activity and that are signiﬁcant to the fair values of the assets or liabilities."
+        }
+      ],
+      "label_notes": "`[10]` sufficient.",
+      "caveats": [],
+      "audit_status": "independently_verified_extracted_text",
+      "human_review_required": true,
+      "human_review_reason": "Human dataset approval remains required; no rendered-PDF check or external publisher authentication was performed.",
+      "tags": [
+        "narrative",
+        "classification"
+      ],
+      "reporting_period": "Fair-value hierarchy disclosed in this quarterly filing",
+      "answer_units": "Narrative hierarchy levels",
+      "human_review_priority": "normal",
+      "independent_auditor_finding": "Fair-value hierarchy classifications verified; source terminology makes this an easier item.",
+      "verification_methods": [
+        "independent_original_pdf_text_read",
+        "whitespace_normalized_excerpt_match"
+      ]
+    },
+    "Q17": {
+      "split": "holdout",
+      "evidence_family": "H-fair-value-policy",
+      "type_and_difficulty": "table calculation / medium",
+      "tags": [
+        "table",
+        "numerical",
+        "calculation"
+      ],
+      "reference_answer": "At August 31, 2026, Level 1 assets were $28,289 million out of $29,086 million total assets measured at fair value: 28,289 / 29,086 * 100 = approximately 97.26%. Money market funds, $28,204 million in Level 1, were the largest component.",
+      "minimal_sufficient_page_sets": [
+        [
+          11
+        ]
+      ],
+      "multi_page_required": false,
+      "evidence": [
+        {
+          "pdf_page": 11,
+          "excerpt": "Total assets $ 28,289 $ 797 $ 29,086 $ 23,455 $ 707 $ 24,162"
+        },
+        {
+          "pdf_page": 11,
+          "excerpt": "Money market funds $ 28,204 $ — $ 28,204 $ 23,387 $ — $ 23,387"
+        }
+      ],
+      "label_notes": "The question concerns assets in the recurring fair-value table, not total consolidated assets or the value of debt outstanding.",
+      "caveats": [
+        "Percentage calculated from displayed million-dollar values; do not treat this as the Level 1 share of all corporate assets."
+      ],
+      "audit_status": "independently_verified_extracted_text",
+      "human_review_required": true,
+      "human_review_reason": "Human dataset approval remains required; no rendered-PDF check or external publisher authentication was performed.",
+      "reporting_period": "August 31, 2026 balance",
+      "answer_units": "USD millions and percent",
+      "human_review_priority": "normal",
+      "independent_auditor_finding": "Replacement independently checked: 97.26% Level 1 share within table assets; money market funds largest.",
+      "verification_methods": [
+        "independent_original_pdf_text_read",
+        "whitespace_normalized_excerpt_match",
+        "pypdf_layout_extraction_cross_check_not_rendering",
+        "independent_arithmetic_check"
+      ]
+    },
+    "Q18": {
+      "split": "holdout",
+      "evidence_family": "H-legal-contingencies",
+      "type_and_difficulty": "multi-page legal/financial synthesis / hard",
+      "reference_answer": "The challenged product is Oracle’s Data Management Platform; alleged violations concern the EU Charter of Fundamental Rights, GDPR and Dutch Telecommunications Act. On July 17, 2026, the Supreme Court found that the Court of Appeal used the wrong class-action evaluation standard and remanded the case. Oracle said the outcome was uncertain but it did not expect a material impact on financial position or operating results.",
+      "minimal_sufficient_page_sets": [
+        [
+          21,
+          22
+        ]
+      ],
+      "multi_page_required": true,
+      "evidence": [
+        {
+          "pdf_page": 21,
+          "excerpt": "TPC alleges that the Oracle Defendants’ Data Management Platform product violates certain articles of the European Union Charter of Fundamental Rights, the General Data Protection Regulation (GDPR) and the Dutch Telecommunications Act (Telecommunicatiewet)."
+        },
+        {
+          "pdf_page": 22,
+          "excerpt": "on July 17, 2026, the Supreme Court found that the Court of Appeal had applied the wrong standard for evaluating a class action and remanded the case to the Court of Appeal for further proceedings."
+        },
+        {
+          "pdf_page": 22,
+          "excerpt": "While the ﬁnal outcome of this matter cannot be predicted with certainty, we do not believe that it will have a material impact on our ﬁnancial position or results of operations."
+        }
+      ],
+      "label_notes": "`[21,22]` mandatory.",
+      "caveats": [
+        "Allegations and management’s assessment are attributed statements, not established liability or an independent loss estimate. The same impact sentence appears elsewhere on p22; retain its Netherlands-case context."
+      ],
+      "audit_status": "independently_verified_extracted_text",
+      "human_review_required": true,
+      "human_review_reason": "Human dataset approval remains required; no rendered-PDF check or external publisher authentication was performed. Review the question's source scope and interpretation/rounding caveats before approval.",
+      "tags": [
+        "narrative",
+        "multi_page"
+      ],
+      "reporting_period": "Case status and management assessment as disclosed in this filing, including July 17, 2026 ruling",
+      "answer_units": "Attributed legal allegations, procedural ruling and management financial-impact assessment",
+      "human_review_priority": "high",
+      "answer_components": [
+        "Product and attributed legal allegations on page 21",
+        "Procedural Supreme Court ruling on page 22",
+        "Attributed, qualified management financial-impact assessment on page 22"
+      ],
+      "independent_auditor_finding": "Netherlands-case allegations, procedural ruling and qualified management assessment verified in context.",
+      "verification_methods": [
+        "independent_original_pdf_text_read",
+        "whitespace_normalized_excerpt_match"
+      ]
+    },
+    "Q19": {
+      "split": "holdout",
+      "evidence_family": "H-property-plant-equipment",
+      "type_and_difficulty": "table calculation / medium",
+      "tags": [
+        "table",
+        "numerical",
+        "calculation"
+      ],
+      "reference_answer": "The construction-in-progress balance increased by $8,573 million: $48,546 million at August 31, 2026 minus $39,973 million at May 31, 2026. Its share of gross property, plant and equipment at August 31 was 48,546 / 153,596 * 100 = approximately 31.61%.",
+      "minimal_sufficient_page_sets": [
+        [
+          11
+        ]
+      ],
+      "multi_page_required": false,
+      "evidence": [
+        {
+          "pdf_page": 11,
+          "excerpt": "Construction in progress — 48,546 39,973"
+        },
+        {
+          "pdf_page": 11,
+          "excerpt": "Total property, plant and equipment 1-40 years 153,596 122,651"
+        }
+      ],
+      "label_notes": "Page 11 alone supplies the calculation inputs. The explanation continuing on page 12 is unnecessary for this source-scoped numerical question.",
+      "caveats": [
+        "Use gross PP&E of $153,596 million, not net PP&E of $127,845 million. The balance increase is not the period's capital expenditures.",
+        "Construction in progress is not restricted to unfinished buildings; the disclosure also concerns assets awaiting deployment."
+      ],
+      "audit_status": "independently_verified_extracted_text",
+      "human_review_required": true,
+      "human_review_reason": "Human dataset approval remains required; no rendered-PDF check or external publisher authentication was performed.",
+      "reporting_period": "August 31, 2026 versus May 31, 2026 balances",
+      "answer_units": "USD millions and percent",
+      "human_review_priority": "normal",
+      "independent_auditor_finding": "Replacement independently checked: construction-in-progress increase $8,573 million and gross-PP&E share31.61%.",
+      "verification_methods": [
+        "independent_original_pdf_text_read",
+        "whitespace_normalized_excerpt_match",
+        "pypdf_layout_extraction_cross_check_not_rendering",
+        "independent_arithmetic_check"
+      ]
+    },
+    "Q20": {
+      "split": "holdout",
+      "evidence_family": "H-currency-methodology",
+      "type_and_difficulty": "illustrative numerical reasoning / medium",
+      "reference_answer": "The illustration translates identical €1.0m revenues into $1.17m in Q1 fiscal 2027 and $1.16m in Q1 fiscal 2026 using their respective period exchange rates. Constant currency holds the May 31, 2026 exchange rate fixed for both periods, producing zero revenue growth in the example.",
+      "minimal_sufficient_page_sets": [
+        [
+          27
+        ]
+      ],
+      "multi_page_required": false,
+      "evidence": [
+        {
+          "pdf_page": 27,
+          "excerpt": "the rates in eﬀect on May 31, 2026, which was the last day of our prior ﬁscal year"
+        },
+        {
+          "pdf_page": 27,
+          "excerpt": "our ﬁnancial statements would reﬂect reported revenues of $1.17 million in the ﬁrst quarter of ﬁscal 2027 (using 1.17 as the applicable average exchange rate for the period) and $1.16 million in the ﬁrst quarter of ﬁscal 2026 (using 1.16 as the applicable average exchange rate for the period)."
+        },
+        {
+          "pdf_page": 27,
+          "excerpt": "The constant currency presentation, however, would translate the results for each of the ﬁrst quarters of ﬁscal 2027 and 2026 using the May 31, 2026 exchange rate and indicate, in this example, no change in revenues between the periods compared."
+        }
+      ],
+      "label_notes": "`[27]` sufficient.",
+      "caveats": [
+        "Hypothetical illustration, not an actual subsidiary’s reported revenue."
+      ],
+      "audit_status": "independently_verified_extracted_text",
+      "human_review_required": true,
+      "human_review_reason": "Human dataset approval remains required; no rendered-PDF check or external publisher authentication was performed.",
+      "tags": [
+        "narrative",
+        "numerical",
+        "illustration",
+        "paraphrase"
+      ],
+      "reporting_period": "Hypothetical Q1 FY2027 versus Q1 FY2026 example; fixed May 31, 2026 rate",
+      "answer_units": "Illustrative EUR/USD millions; exchange rates; zero percent constant-currency growth",
+      "human_review_priority": "normal",
+      "independent_auditor_finding": "Hypothetical currency illustration and fixed exchange-rate date verified.",
+      "verification_methods": [
+        "independent_original_pdf_text_read",
+        "whitespace_normalized_excerpt_match"
+      ]
+    },
+    "Q21": {
+      "split": "holdout",
+      "evidence_family": "H-controls",
+      "type_and_difficulty": "narrative status / easy",
+      "reference_answer": "Management concluded disclosure controls were effective at providing reasonable assurance. It reported no quarterly changes in internal control over financial reporting that materially affected, or were reasonably likely to materially affect, those controls.",
+      "minimal_sufficient_page_sets": [
+        [
+          38
+        ]
+      ],
+      "multi_page_required": false,
+      "evidence": [
+        {
+          "pdf_page": 38,
+          "excerpt": "were eﬀective to provide reasonable assurance that the information required to be disclosed by us in our reports ﬁled or submitted under the Exchange Act is recorded, processed, summarized, and reported within the time periods speciﬁed in the SEC’s rules and forms"
+        },
+        {
+          "pdf_page": 38,
+          "excerpt": "There were no changes in our internal control over ﬁnancial reporting identiﬁed in connection with the evaluation required by paragraph (d) of Exchange Act Rules 13a-15 or 15d-15 that occurred during our last ﬁscal quarter that have materially aﬀected, or are reasonably likely to materially aﬀect, our internal control over ﬁnancial reporting."
+        }
+      ],
+      "label_notes": "`[38]` sufficient.",
+      "caveats": [
+        "Does not assert that absolutely no control changes occurred."
+      ],
+      "audit_status": "independently_verified_extracted_text",
+      "human_review_required": true,
+      "human_review_reason": "Human dataset approval remains required; no rendered-PDF check or external publisher authentication was performed.",
+      "tags": [
+        "narrative"
+      ],
+      "reporting_period": "Quarter ended August 31, 2026",
+      "answer_units": "Narrative assessment and assurance standard",
+      "human_review_priority": "normal",
+      "independent_auditor_finding": "Reasonable assurance and materiality-qualified internal-control-change statement verified.",
+      "verification_methods": [
+        "independent_original_pdf_text_read",
+        "whitespace_normalized_excerpt_match"
+      ]
+    },
+    "Q22": {
+      "split": "holdout",
+      "evidence_family": "H-controls",
+      "type_and_difficulty": "low-overlap limitation reasoning / medium",
+      "reference_answer": "Controls provide reasonable, not absolute, assurance. Disclosed failure mechanisms include faulty judgment or simple mistakes, collusion, and management override.",
+      "minimal_sufficient_page_sets": [
+        [
+          38
+        ]
+      ],
+      "multi_page_required": false,
+      "evidence": [
+        {
+          "pdf_page": 38,
+          "excerpt": "A control system, no matter how well-conceived and operated, can provide only reasonable, not absolute, assurance that the objectives of the control system are met."
+        },
+        {
+          "pdf_page": 38,
+          "excerpt": "These inherent limitations include the realities that judgments in decision making can be faulty and that breakdowns can occur because of a simple error or mistake."
+        },
+        {
+          "pdf_page": 38,
+          "excerpt": "Additionally, controls can be circumvented by the individual acts of some persons, by collusion of two or more people or by management override of the controls."
+        }
+      ],
+      "label_notes": "`[38]` sufficient.",
+      "caveats": [
+        "Accept any three distinct disclosed failure mechanisms; do not require the reference answer's exact phrasing."
+      ],
+      "audit_status": "independently_verified_extracted_text",
+      "human_review_required": true,
+      "human_review_reason": "Human dataset approval remains required; no rendered-PDF check or external publisher authentication was performed.",
+      "tags": [
+        "narrative",
+        "paraphrase"
+      ],
+      "reporting_period": "Control limitations disclosed for the quarter ended August 31, 2026",
+      "answer_units": "Narrative limitations; three examples",
+      "human_review_priority": "normal",
+      "independent_auditor_finding": "Reasonable versus absolute assurance and disclosed failure mechanisms verified; any three supported examples accepted.",
+      "verification_methods": [
+        "independent_original_pdf_text_read",
+        "whitespace_normalized_excerpt_match"
+      ]
+    },
+    "Q23": {
+      "split": "holdout",
+      "evidence_family": "H-risk-disclosure-scope",
+      "type_and_difficulty": "evidence-bound narrative / easy",
+      "reference_answer": "Readers are directed to Part I, Item 1A of the Form 10-K for the fiscal year ended May 31, 2026. That discussion is not exhaustive because risks currently unknown or regarded as insignificant could also materially harm the business, financial condition or operating results.",
+      "minimal_sufficient_page_sets": [
+        [
+          39
+        ]
+      ],
+      "multi_page_required": false,
+      "evidence": [
+        {
+          "pdf_page": 39,
+          "excerpt": "you should carefully consider the factors discussed in Part I, Item 1A Risk Factors in our Annual Report on Form 10-K for the ﬁscal year ended May 31, 2026."
+        },
+        {
+          "pdf_page": 39,
+          "excerpt": "Additional risks and uncertainties not currently known to us or that we currently deem to be insigniﬁcant also may materially and adversely aﬀect our business, ﬁnancial condition or operating results in the future."
+        }
+      ],
+      "label_notes": "`[39]` sufficient under the Item 1A scope.",
+      "caveats": [
+        "Does not require access to the referenced annual report."
+      ],
+      "audit_status": "independently_verified_extracted_text",
+      "human_review_required": true,
+      "human_review_reason": "Human dataset approval remains required; no rendered-PDF check or external publisher authentication was performed.",
+      "tags": [
+        "narrative"
+      ],
+      "reporting_period": "Risk-factor cross-reference in this quarterly filing to FY ended May 31, 2026 Form 10-K",
+      "answer_units": "Narrative cross-reference; no additional annual-report evidence assumed",
+      "human_review_priority": "normal",
+      "independent_auditor_finding": "Quarterly risk-section cross-reference and non-exhaustiveness explanation verified.",
+      "verification_methods": [
+        "independent_original_pdf_text_read",
+        "whitespace_normalized_excerpt_match"
+      ]
+    },
+    "Q24": {
+      "split": "holdout",
+      "evidence_family": "H-insider-trading-plan",
+      "type_and_difficulty": "numerical disclosure and authorization distinction / medium",
+      "reference_answer": "Lawrence J. Ellison, Executive Chair and CTO. Scheduled termination: October 24, 2026, subject to specified early-termination events. Permitted sales: up to 50m common shares. This is authorization, not proof of completed sales; the filing says actual transactions will be disclosed in future Section 16 filings.",
+      "minimal_sufficient_page_sets": [
+        [
+          39
+        ]
+      ],
+      "multi_page_required": false,
+      "evidence": [
+        {
+          "pdf_page": 39,
+          "excerpt": "Lawrence J. Ellison, our Executive Chair of the Board of Directors and Chief Technology Oﬃcer, adopted a new trading plan on June 22, 2026."
+        },
+        {
+          "pdf_page": 39,
+          "excerpt": "Mr. Ellison’s plan is scheduled to terminate on October 24, 2026, subject to early termination for certain speciﬁed events set forth in the plan. The trading plan is intended to permit Mr. Ellison to sell up to 50 million shares of Oracle common stock."
+        },
+        {
+          "pdf_page": 39,
+          "excerpt": "actual sale transactions made pursuant to such trading arrangement will be disclosed publicly in future Section 16 ﬁlings with the SEC."
+        }
+      ],
+      "label_notes": "`[39]` sufficient.",
+      "caveats": [
+        "No inference about actual sales or subsequent plan status."
+      ],
+      "audit_status": "independently_verified_extracted_text",
+      "human_review_required": true,
+      "human_review_reason": "Human dataset approval remains required; no rendered-PDF check or external publisher authentication was performed.",
+      "tags": [
+        "narrative",
+        "numerical"
+      ],
+      "reporting_period": "Plan adopted June 22, 2026, with scheduled October 24, 2026 termination as disclosed; not a subsequent-events update",
+      "answer_units": "Millions of common shares; named individual and calendar dates; not actual completed sales",
+      "human_review_priority": "normal",
+      "independent_auditor_finding": "Named individual's disclosed trading-plan terms verified; completed sales are not established.",
+      "verification_methods": [
+        "independent_original_pdf_text_read",
+        "whitespace_normalized_excerpt_match"
+      ]
+    },
+    "Q25": {
+      "split": "holdout",
+      "evidence_family": "H-executive-bonus-plan",
+      "type_and_difficulty": "exhibit interpretation and calculation / medium",
+      "reference_answer": "Maximum award per participant for one year: $15m. Hypothetical 18-month maximum: $15m × 18/12 = $22.5m. The payout formula cannot override the Maximum Award cap.",
+      "minimal_sufficient_page_sets": [
+        [
+          42,
+          44
+        ]
+      ],
+      "multi_page_required": true,
+      "evidence": [
+        {
+          "pdf_page": 42,
+          "excerpt": "“Maximum Award” shall mean as to any Participant for any one year Performance Period, an amount not to exceed $15,000,000; such Maximum Award shall be adjusted upwards or downwards on a pro rata basis to reﬂect a Performance Period longer or shorter than one year."
+        },
+        {
+          "pdf_page": 44,
+          "excerpt": "in no event shall a Participant’s Actual Award for any Performance Period exceed his or her Maximum Award."
+        }
+      ],
+      "label_notes": "`[42,44]` mandatory.",
+      "caveats": [
+        "Hypothetical contractual ceiling, not compensation actually awarded."
+      ],
+      "audit_status": "independently_verified_extracted_text",
+      "human_review_required": true,
+      "human_review_reason": "Human dataset approval remains required; no rendered-PDF check or external publisher authentication was performed. Review the question's source scope and interpretation/rounding caveats before approval.",
+      "tags": [
+        "narrative",
+        "numerical",
+        "calculation",
+        "multi_page",
+        "paraphrase"
+      ],
+      "reporting_period": "Executive bonus plan effective August 24, 2026; one-year and hypothetical 18-month periods",
+      "answer_units": "USD millions per participant; months",
+      "human_review_priority": "high",
+      "independent_auditor_finding": "Per-participant annual and prorated hypothetical caps and payout limit verified.",
+      "verification_methods": [
+        "independent_original_pdf_text_read",
+        "whitespace_normalized_excerpt_match",
+        "independent_arithmetic_check"
+      ]
+    }
+  }
+}

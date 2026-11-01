@@ -122,6 +122,11 @@ manually labeled questions about the four-page fictional Asteron Ledger report.
 Three questions require evidence from two pages. Labels use extracted,
 one-based PDF viewer page numbers.
 
+A separate [25-question Oracle dataset proposal](evals/oracle_fy2027_q1/README.md)
+includes independently audited extracted-text evidence, reference answers and
+a proposed development/holdout split. It requires the matching local filing
+and human approval; it has not been retrieval-benchmarked.
+
 ```bash
 uv run --offline --no-sync frc eval tests/fixtures/synthetic_financial_report.pdf \
   --method lexical --dataset tests/fixtures/financial_report_eval.json

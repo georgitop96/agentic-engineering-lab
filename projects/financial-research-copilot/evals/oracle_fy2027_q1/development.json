@@ -1,0 +1,119 @@
+[
+  {
+    "id": "Q01",
+    "question": "Using Oracle's condensed balance sheets, calculate working capital and the current ratio at August 31, 2026 and May 31, 2026. How much did working capital improve? Report the ratios to four decimal places.",
+    "gold_pages": [
+      3
+    ]
+  },
+  {
+    "id": "Q02",
+    "question": "Using only the balance sheet, cash-flow statement, and restricted-cash disclosure in the accounting-policies note, reconcile the August 31, 2026 difference in millions of dollars between cash and cash equivalents and cash, cash equivalents and restricted cash. Where is the restricted amount classified?",
+    "gold_pages": [
+      3,
+      7,
+      8
+    ]
+  },
+  {
+    "id": "Q03",
+    "question": "For the quarters ended August 31, 2026 and 2025, calculate GAAP operating income as a percentage of revenue from the reported dollar amounts. By how many percentage points did that percentage change?",
+    "gold_pages": [
+      4,
+      28
+    ]
+  },
+  {
+    "id": "Q04",
+    "question": "For the quarter ended August 31, 2026, what percentage of operating cash flow came from the cash-flow statement's customer-prepayment increase with a significant financing component, and what would operating cash flow be after mechanically removing that line? Separately, how are the financing component and related interest accounted for?",
+    "gold_pages": [
+      7,
+      9
+    ]
+  },
+  {
+    "id": "Q05",
+    "question": "Define free cash flow here as operating cash flow less capital expenditures. Calculate it for the quarters ended August 31, 2026 and 2025, and quantify the deterioration.",
+    "gold_pages": [
+      7,
+      36
+    ]
+  },
+  {
+    "id": "Q06",
+    "question": "Compared with selling a perpetual software license, when does Oracle count revenue from cloud subscriptions and ongoing software support?",
+    "gold_pages": [
+      18,
+      23,
+      24
+    ]
+  },
+  {
+    "id": "Q07",
+    "question": "How much did Oracle's remaining performance obligations grow in dollars and percent from August 31, 2025 to August 31, 2026, what primarily caused the increase, and approximately how many dollars of the August 2026 balance are expected to be recognized more than five years later?",
+    "gold_pages": [
+      9,
+      37
+    ]
+  },
+  {
+    "id": "Q08",
+    "question": "Between May 31 and August 31, 2026, how much did Oracle's unearned revenue balance rise, and what dollar amount and percentage of that rise was classified as non-current?",
+    "gold_pages": [
+      13
+    ]
+  },
+  {
+    "id": "Q09",
+    "question": "Distinguish lease assets obtained during the quarter from signed leases that had not yet entered the balance sheet: what was the combined value of operating and finance ROU assets obtained in exchange for lease obligations during the quarter ended August 31, 2026, and what additional unrecognized lease commitments remained, with what commencement window and lease terms?",
+    "gold_pages": [
+      14,
+      15
+    ]
+  },
+  {
+    "id": "Q10",
+    "question": "For the unconditional purchase and other obligations disclosed at August 31, 2026, excluding leases, what amount falls due from the remainder of fiscal 2027 through fiscal 2029, and what percentage of that obligations table's total does it represent?",
+    "gold_pages": [
+      15
+    ]
+  },
+  {
+    "id": "Q11",
+    "question": "Using the rounded common-stock at-the-market share-offering disclosure, how many shares did Oracle issue during the quarter ended August 31, 2026, how much net cash did it raise, and what approximate net proceeds per share do those rounded figures imply?",
+    "gold_pages": [
+      15,
+      37
+    ]
+  },
+  {
+    "id": "Q12",
+    "question": "For the 2026 Restructuring Plan, use the restructuring summary table's total expected program costs and cumulative costs accrued to date to calculate expected costs not yet accrued at August 31, 2026. Separately, how much did management supplement the plan after that date?",
+    "gold_pages": [
+      12,
+      13
+    ]
+  },
+  {
+    "id": "Q13",
+    "question": "In the income-tax note, what were Oracle's effective tax rates for the quarters ended August 31, 2026 and 2025, what were net deferred tax assets at August 31 and May 31, 2026, and what must occur for those assets to be realized?",
+    "gold_pages": [
+      17
+    ]
+  },
+  {
+    "id": "Q14",
+    "question": "Using only the segment-results and reconciliation tables in the operating-segments note, give each business's segment margin for the quarter ended August 31, 2026, add them, and calculate the net reduction needed to arrive at consolidated income before income taxes.",
+    "gold_pages": [
+      19,
+      20
+    ]
+  },
+  {
+    "id": "Q15",
+    "question": "Why did Oracle's cloud and software business earn more margin dollars but retain a smaller share of each revenue dollar in the first quarter of fiscal 2027 compared with the first quarter of fiscal 2026? Quantify the change in the table's rounded margin percentage, separately from the constant-currency explanation.",
+    "gold_pages": [
+      30
+    ]
+  }
+]

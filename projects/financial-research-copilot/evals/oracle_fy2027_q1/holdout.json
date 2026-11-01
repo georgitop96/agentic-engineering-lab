@@ -1,0 +1,74 @@
+[
+  {
+    "id": "Q16",
+    "question": "In Oracle's fair-value hierarchy, which levels correspond to an active-market quote for an identical instrument, other observable market inputs, and significant inputs with little or no market activity?",
+    "gold_pages": [
+      10
+    ]
+  },
+  {
+    "id": "Q17",
+    "question": "At August 31, 2026, what percentage of the assets in Oracle's recurring fair-value measurement table used Level 1 inputs, and which asset category contributed the most to that tier?",
+    "gold_pages": [
+      11
+    ]
+  },
+  {
+    "id": "Q18",
+    "question": "For the Netherlands Privacy Class Action, what product and alleged violations are described, what did the Supreme Court decide on July 17, 2026, and what financial-impact assessment did Oracle disclose?",
+    "gold_pages": [
+      21,
+      22
+    ]
+  },
+  {
+    "id": "Q19",
+    "question": "Using Note 3's asset table, how much did the construction-in-progress balance increase between May 31 and August 31, 2026, and what percentage of gross property, plant and equipment did it represent at August 31?",
+    "gold_pages": [
+      11
+    ]
+  },
+  {
+    "id": "Q20",
+    "question": "In Oracle's example with unchanged euro sales, why can the dollar sales totals still differ, and which exchange-rate date is used to remove that effect?",
+    "gold_pages": [
+      27
+    ]
+  },
+  {
+    "id": "Q21",
+    "question": "For the period ended August 31, 2026, what did management conclude about disclosure controls, and what did it report about quarterly changes in internal control over financial reporting?",
+    "gold_pages": [
+      38
+    ]
+  },
+  {
+    "id": "Q22",
+    "question": "What assurance can Oracle's reporting safeguards provide, and which three disclosed weaknesses could let mistakes or dishonesty escape detection?",
+    "gold_pages": [
+      38
+    ]
+  },
+  {
+    "id": "Q23",
+    "question": "In the quarterly risk-factor section, which earlier filing supplies the detailed risks, and why can other risks still matter?",
+    "gold_pages": [
+      39
+    ]
+  },
+  {
+    "id": "Q24",
+    "question": "Whose trading plan was adopted on June 22, 2026, what was its scheduled termination date and maximum permitted share sale, and does that authorization establish how many shares were actually sold?",
+    "gold_pages": [
+      39
+    ]
+  },
+  {
+    "id": "Q25",
+    "question": "Under Oracle's executive bonus plan, what ceiling applies to one participant for a one-year period and a hypothetical 18-month period, and can the payout formula exceed it?",
+    "gold_pages": [
+      42,
+      44
+    ]
+  }
+]
