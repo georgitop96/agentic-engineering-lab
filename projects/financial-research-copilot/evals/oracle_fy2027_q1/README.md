@@ -6,6 +6,12 @@ semantic retrieval was scored on these questions during their design.
 This v1 acceptance candidate is **not human-approved or frozen**. Human
 rendered-PDF review and source provenance approval remain pending.
 
+The later [Milestone 5B development baseline](BASELINE.md) records retrieval
+diagnostics on Q01–Q15 under the project owner's explicit instruction. It does
+not change these gold labels or approval status. The evidence-design and
+pre-benchmark verification statements below describe Milestone 5A; the
+10-question holdout remains unmeasured.
+
 ## Deliverables
 
 | File | Purpose |
